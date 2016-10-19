@@ -1,6 +1,7 @@
 import database.Connexion;
 import database.UsagerDB;
 import model.Usager;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -24,15 +25,23 @@ public class TestUsagerDB {
         usagerDB = new UsagerDB();
     }
 
+    @Before
+    public void cleanData() throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM usager");
+        preparedStatement.executeUpdate();
+
+        usagerDB.insert("Pierson", "Guillaume", "guillaume.pierson@gmail.com", "5 rue du rosier");
+    }
+
     @Test
     public void testInsert() throws SQLException{
-        usagerDB.insert("Pierson", "Guillaume", "guillaume.pierson@gmail.com", "5 rue du rosier");
+        usagerDB.insert("Pierson", "Guillaume", "guillaume.pierson@gmail.com", "9 rue du rosier");
 
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT idUsager FROM usager WHERE nomUsager = ? AND prenomUsager = ? AND mail = ? and adresse = ?");
         preparedStatement.setString(1, "Pierson");
         preparedStatement.setString(2, "Guillaume");
         preparedStatement.setString(3, "guillaume.pierson@gmail.com");
-        preparedStatement.setString(4, "5 rue du rosier");
+        preparedStatement.setString(4, "9 rue du rosier");
         ResultSet rs = preparedStatement.executeQuery();
         rs.next();
         assertNotNull(rs.getInt("idUsager"));
@@ -68,7 +77,7 @@ public class TestUsagerDB {
 
     @Test
     public void testDelete() throws SQLException{
-        int id = usagerDB.getIdFromUsager("Pierson", "Guillaume", "guillaume.pierson@gmail.com", "7 rue du rosier");
+        int id = usagerDB.getIdFromUsager("Pierson", "Guillaume", "guillaume.pierson@gmail.com", "5 rue du rosier");
         usagerDB.delete(id);
         assertNull(usagerDB.findById(id));
     }

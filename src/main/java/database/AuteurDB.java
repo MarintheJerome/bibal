@@ -14,25 +14,36 @@ public class AuteurDB {
 
     private Connection connection;
 
-    public void setConnection(){
-        this.connection = (Connection) Connexion.getInstance();
+    public AuteurDB(){
+        connection = Connexion.getStaticConnection();
     }
 
     public Auteur findById(int idAuteur) throws SQLException {
         PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM auteur WHERE idAuteur= ?");
         preparedStatement.setInt(1, idAuteur);
         ResultSet rs = preparedStatement.executeQuery();
-        rs.next();
-        String nomAuteur = rs.getString("nomAuteur");
-        String prenomAuteur = rs.getString("prenomAuteur");
-        return new Auteur(idAuteur, nomAuteur, prenomAuteur);
+        if(rs.next()) {
+            String nomAuteur = rs.getString("nomAuteur");
+            String prenomAuteur = rs.getString("prenomAuteur");
+            return new Auteur(idAuteur, nomAuteur, prenomAuteur);
+        }else{
+            return null;
+        }
     }
 
-    public void insert(int idAuteur, String nomAuteur, String prenomAuteur) throws SQLException {
-        PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO auteur(idAuteur, nomAuteur, prenomAuteur) VALUES(?, ?, ?)");
-        preparedStatement.setInt(1, idAuteur);
-        preparedStatement.setString(2, nomAuteur);
-        preparedStatement.setString(3, prenomAuteur);
+    public int getIdFromAuteur(String nomAuteur, String prenomAuteur) throws SQLException {
+        PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT idAuteur FROM auteur WHERE nomAuteur = ? AND prenomAuteur = ?");
+        preparedStatement.setString(1, nomAuteur);
+        preparedStatement.setString(2, prenomAuteur);
+        ResultSet rs = preparedStatement.executeQuery();
+        rs.next();
+        return rs.getInt("idAuteur");
+    }
+
+    public void insert(String nomAuteur, String prenomAuteur) throws SQLException {
+        PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO auteur(nomAuteur, prenomAuteur) VALUES(?, ?)");
+        preparedStatement.setString(1, nomAuteur);
+        preparedStatement.setString(2, prenomAuteur);
         preparedStatement.executeUpdate();
     }
 
