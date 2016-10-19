@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="128.0" layoutY="43.0" text="Projet Bibal" />
+      <Label layoutX="128.0" layoutY="100.0" text="Professeur : Khaled Benali" />
+      <Label layoutX="128.0" layoutY="129.0" text="Groupe : HUGO Yohann &amp; MARINTHE Jérôme" />
+      <Label layoutX="131.0" layoutY="161.0" text="Année 2016-2017" />
+      <Label layoutX="128.0" layoutY="74.0" text="M2 SID" />
+   </children>
+</AnchorPane>
