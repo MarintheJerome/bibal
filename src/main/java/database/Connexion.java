@@ -5,17 +5,18 @@ import java.sql.*;
 /**
  * Created by jerome on 19/10/2016.
  */
-public class Connector {
+public class Connexion {
     private final static String USER = "root";
     private final static String PASSWORD = "root";
 
     /**
      * Instance de la classe
      */
-    private static Connector INSTANCE = null;
+    private static Connexion INSTANCE = null;
 
     private Connection connection;
-    private Connector(){
+
+    private Connexion(){
         try {
             Class.forName("org.mariadb.jdbc.Driver");
             this.connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/Bibal", USER, PASSWORD);
@@ -30,9 +31,9 @@ public class Connector {
      * Permet de récupérer l'instance unique
      * @return l'instance unique
      */
-    public static Connector getInstance(){
+    public static Connexion getInstance(){
         if (INSTANCE == null){
-            INSTANCE = new Connector();
+            INSTANCE = new Connexion();
         }
         return INSTANCE;
     }
@@ -42,6 +43,6 @@ public class Connector {
     }
 
     public static Connection getStaticConnection(){
-        return Connector.getInstance().getConnection();
+        return Connexion.getInstance().getConnection();
     }
 }

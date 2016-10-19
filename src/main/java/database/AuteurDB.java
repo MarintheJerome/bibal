@@ -15,7 +15,7 @@ public class AuteurDB {
     private Connection connection;
 
     public void setConnection(){
-        this.connection = (Connection) Connector.getInstance();
+        this.connection = (Connection) Connexion.getInstance();
     }
 
     public Auteur findById(int idAuteur) throws SQLException {

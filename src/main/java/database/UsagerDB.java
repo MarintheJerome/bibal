@@ -14,29 +14,42 @@ public class UsagerDB {
 
     private Connection connection;
 
-    public void setConnection(){
-        this.connection = (Connection) Connector.getInstance();
+    public UsagerDB(){
+        this.connection = Connexion.getStaticConnection();
     }
 
     public Usager findById(int idUsager) throws SQLException {
         PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM usager WHERE idUsager= ?");
         preparedStatement.setInt(1, idUsager);
         ResultSet rs = preparedStatement.executeQuery();
-        rs.next();
-        String nom = rs.getString("nomUsager");
-        String prenom = rs.getString("prenomUsager");
-        String mail = rs.getString("Mail");
-        String adresse = rs.getString("Adresse");
-        return new Usager(idUsager, nom, prenom, mail, adresse);
+        if(rs.next()) {
+            String nom = rs.getString("nomUsager");
+            String prenom = rs.getString("prenomUsager");
+            String mail = rs.getString("Mail");
+            String adresse = rs.getString("Adresse");
+            return new Usager(idUsager, nom, prenom, mail, adresse);
+        }else{
+            return null;
+        }
     }
 
-    public void insert(int id, String nomUsager, String prenomUsager, String mail, String adresse) throws SQLException {
-        PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO usager(idUsager, nomUsager, prenomUsager, Mail, Adresse) VALUES (?, ?, ?, ?, ?");
-        preparedStatement.setInt(1, id);
-        preparedStatement.setString(2, nomUsager);
-        preparedStatement.setString(3, prenomUsager);
-        preparedStatement.setString(4, mail);
-        preparedStatement.setString(5, adresse);
+    public int getIdFromUsager(String nomUsager, String prenomUsager, String mail, String adresse) throws SQLException {
+        PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT idUsager FROM usager WHERE nomUsager = ? AND prenomUsager = ? AND mail = ? and adresse = ?");
+        preparedStatement.setString(1, nomUsager);
+        preparedStatement.setString(2, prenomUsager);
+        preparedStatement.setString(3, mail);
+        preparedStatement.setString(4, adresse);
+        ResultSet rs = preparedStatement.executeQuery();
+        rs.next();
+        return rs.getInt("idUsager");
+    }
+
+    public void insert(String nomUsager, String prenomUsager, String mail, String adresse) throws SQLException {
+        PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO usager(nomUsager, prenomUsager, Mail, Adresse) VALUES (?, ?, ?, ?)");
+        preparedStatement.setString(1, nomUsager);
+        preparedStatement.setString(2, prenomUsager);
+        preparedStatement.setString(3, mail);
+        preparedStatement.setString(4, adresse);
         preparedStatement.executeUpdate();
     }
 
