@@ -8,9 +8,17 @@ public class Usager {
     private String nom;
     private String prenom;
     private String mail;
-    private Adresse adresse;
+    private String adresse;
 
     public Usager(){}
+
+    public Usager(int idUsager, String nom, String prenom, String mail, String adresse) {
+        this.idUsager = idUsager;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.mail = mail;
+        this.adresse = adresse;
+    }
 
     public int getIdUsager() {
         return idUsager;
@@ -44,11 +52,11 @@ public class Usager {
         this.mail = mail;
     }
 
-    public Adresse getAdresse() {
+    public String getAdresse() {
         return adresse;
     }
 
-    public void setAdresse(Adresse adresse) {
+    public void setAdresse(String adresse) {
         this.adresse = adresse;
     }
 

@@ -4,33 +4,39 @@ package model;
  * Created by jerome on 19/10/2016.
  */
 public class Auteur {
-    private int id;
-    private String nom;
-    private String prenom;
+    private int idAuteur;
+    private String nomAuteur;
+    private String prenomAuteur;
 
     public Auteur(){}
 
-    public int getId() {
-        return id;
+    public Auteur(int idAuteur, String nomAuteur, String prenomAuteur) {
+        this.idAuteur = idAuteur;
+        this.nomAuteur = nomAuteur;
+        this.prenomAuteur = prenomAuteur;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getIdAuteur() {
+        return idAuteur;
     }
 
-    public String getNom() {
-        return nom;
+    public void setIdAuteur(int idAuteur) {
+        this.idAuteur = idAuteur;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public String getNomAuteur() {
+        return nomAuteur;
     }
 
-    public String getPrenom() {
-        return prenom;
+    public void setNomAuteur(String nomAuteur) {
+        this.nomAuteur = nomAuteur;
     }
 
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
+    public String getPrenomAuteur() {
+        return prenomAuteur;
+    }
+
+    public void setPrenomAuteur(String prenomAuteur) {
+        this.prenomAuteur = prenomAuteur;
     }
 }
