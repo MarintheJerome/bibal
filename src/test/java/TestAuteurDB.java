@@ -2,9 +2,7 @@ import database.AuteurDB;
 import database.Connexion;
 import model.Auteur;
 import model.Usager;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,6 +21,11 @@ public class TestAuteurDB {
     private static Connection connection;
     private static AuteurDB auteurDB;
 
+    private static void delete() throws SQLException{
+        PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM auteur");
+        preparedStatement.executeUpdate();
+    }
+
     @BeforeClass
     public static void init(){
         connection = Connexion.getStaticConnection();
@@ -31,10 +34,13 @@ public class TestAuteurDB {
 
     @Before
     public void cleanData() throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM auteur");
-        preparedStatement.executeUpdate();
-
+        delete();
         auteurDB.insert("Hugo", "Victor");
+    }
+
+    @AfterClass()
+    public static void deleteAfterTest() throws SQLException {
+        delete();
     }
 
     @Test

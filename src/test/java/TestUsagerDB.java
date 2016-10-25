@@ -1,6 +1,7 @@
 import database.Connexion;
 import database.UsagerDB;
 import model.Usager;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -19,6 +20,11 @@ public class TestUsagerDB {
     private static Connection connection;
     private static UsagerDB usagerDB;
 
+    private static void delete() throws SQLException{
+        PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM usager");
+        preparedStatement.executeUpdate();
+    }
+
     @BeforeClass
     public static void init(){
         connection = Connexion.getStaticConnection();
@@ -27,10 +33,13 @@ public class TestUsagerDB {
 
     @Before
     public void cleanData() throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM usager");
-        preparedStatement.executeUpdate();
-
+        delete();
         usagerDB.insert("Pierson", "Guillaume", "guillaume.pierson@gmail.com", "5 rue du rosier");
+    }
+
+    @AfterClass()
+    public static void deleteAfterTest() throws SQLException {
+        delete();
     }
 
     @Test
