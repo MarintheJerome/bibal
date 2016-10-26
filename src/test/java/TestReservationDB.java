@@ -1,5 +1,6 @@
 import database.*;
 import model.Emprunt;
+import model.Reservation;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -14,34 +15,26 @@ import static org.junit.Assert.assertNull;
 /**
  * Created by jerome on 26/10/2016.
  */
-public class TestEmpruntDB {
+public class TestReservationDB {
     private static Connection connection;
     private static OeuvreDB oeuvreDB;
     private static AuteurDB auteurDB;
     private static UsagerDB usagerDB;
-    private static EmpruntDB empruntDB;
-    private static ExemplaireDB exemplaireDB;
+    private static ReservationDB reservationDB;
 
     private int idAuteur;
     private String ISBN;
-    private int idExemplaire;
     private int idUsager;
 
     private static void delete() throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM Emprunt");
+        PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM Reservation");
         preparedStatement.executeUpdate();
         preparedStatement = connection.prepareStatement("DELETE FROM Usager");
-        preparedStatement.executeUpdate();
-        preparedStatement = connection.prepareStatement("DELETE FROM Exemplaire");
         preparedStatement.executeUpdate();
         preparedStatement = connection.prepareStatement("DELETE FROM Oeuvre");
         preparedStatement.executeUpdate();
         preparedStatement = connection.prepareStatement("DELETE FROM Auteur");
         preparedStatement.executeUpdate();
-    }
-
-    public int getMaxIDExemplaire() throws SQLException {
-        return exemplaireDB.getMaxId();
     }
 
     @BeforeClass
@@ -50,8 +43,7 @@ public class TestEmpruntDB {
         oeuvreDB = new OeuvreDB();
         auteurDB = new AuteurDB();
         usagerDB = new UsagerDB();
-        exemplaireDB = new ExemplaireDB();
-        empruntDB = new EmpruntDB();
+        reservationDB = new ReservationDB();
     }
 
     @Before
@@ -64,9 +56,6 @@ public class TestEmpruntDB {
         oeuvreDB.insertLivre("978-1-2345-6789-7", "Harry Potter", "Harry Potter et la chambre des secrets", new Date(12000), 1, new Date(13000), "Harry va dans la chambre des secrets oO", idAuteur);
         ISBN = oeuvreDB.getISBNFromOeuvre("Harry Potter", "Harry Potter et la chambre des secrets", new Date(12000), 1, new Date(13000), "Harry va dans la chambre des secrets oO", idAuteur, null, null);
 
-        exemplaireDB.insert("Bon", ISBN);
-        idExemplaire = getMaxIDExemplaire();
-
         usagerDB.insert("Pierson", "Guillaume", "guillaume.pierson@gmail.com", "9 rue du rosier");
         idUsager = usagerDB.getIdFromUsager("Pierson", "Guillaume", "guillaume.pierson@gmail.com", "9 rue du rosier");
     }
@@ -78,40 +67,40 @@ public class TestEmpruntDB {
 
     @Test
     public void testInsert() throws SQLException{
-        empruntDB.insert(idUsager, idExemplaire, new Date(12000), 7, new Date(250000));
+        reservationDB.insert(idUsager, ISBN, new Date(12000), "en attente");
 
-        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Emprunt WHERE idUsager = ? AND idExemplaire = ?");
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Reservation WHERE idUsager = ? AND ISBN = ?");
         preparedStatement.setInt(1, idUsager);
-        preparedStatement.setInt(2, idExemplaire);
+        preparedStatement.setString(2, ISBN);
         ResultSet rs = preparedStatement.executeQuery();
         rs.next();
         assertNotNull(rs.getInt("idUsager"));
-        assertNotNull(rs.getInt("idExemplaire"));
+        assertNotNull(rs.getString("ISBN"));
     }
 
     @Test
     public void testFindByIds() throws SQLException{
-        empruntDB.insert(idUsager, idExemplaire, new Date(12000), 7, new Date(250000));
+        reservationDB.insert(idUsager, ISBN, new Date(12000), "en attente");
 
-        Emprunt emprunt = empruntDB.findByIds(idUsager, idExemplaire);
-        assertNotNull(emprunt);
+        Reservation reservation = reservationDB.findByIds(idUsager, ISBN);
+        assertNotNull(reservation);
     }
 
     @Test
     public void update() throws SQLException{
-        empruntDB.insert(idUsager, idExemplaire, new Date(12000), 7, new Date(250000));
+        reservationDB.insert(idUsager, ISBN, new Date(12000), "en attente");;
 
-        empruntDB.update(idUsager, idExemplaire, new Date(12000), 15, new Date(250000));
-        Emprunt emprunt = empruntDB.findByIds(idUsager, idExemplaire);
-        assertNotNull(emprunt);
-        assertEquals(15, emprunt.getDuree());
+        reservationDB.update(idUsager, ISBN, new Date(12000), "terminée");
+        Reservation reservation = reservationDB.findByIds(idUsager, ISBN);
+        assertNotNull(reservation);
+        assertEquals("terminée", reservation.getEtat());
     }
 
     @Test
     public void testDelete() throws SQLException{
-        empruntDB.insert(idUsager, idExemplaire, new Date(12000), 7, new Date(250000));
+        reservationDB.insert(idUsager, ISBN, new Date(12000), "en attente");
 
-        empruntDB.delete(idUsager, idExemplaire);
-        assertNull(empruntDB.findByIds(idUsager, idExemplaire));
+        reservationDB.delete(idUsager, ISBN);
+        assertNull(reservationDB.findByIds(idUsager, ISBN));
     }
 }

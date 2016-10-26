@@ -2,7 +2,6 @@ package database;
 
 import model.Emprunt;
 import model.Exemplaire;
-import model.Oeuvre;
 import model.Usager;
 
 import java.sql.*;
@@ -51,7 +50,8 @@ public class EmpruntDB {
     }
 
     public void update(int idUsager, int idExemplaire, Date dateDebut, int duree, Date dateRetourEffective) throws SQLException {
-        PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE emprunt SET dateDebut = ?, durée = ?, dateRetourEffective = ? WHERE idUsager = ? AND idExemplaire = ?");
+        PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE emprunt SET dateDebut = ?, durée = ?, dateRetourEffective = ? " +
+                "WHERE idUsager = ? AND idExemplaire = ?");
         preparedStatement.setDate(1, dateDebut);
         preparedStatement.setInt(2, duree);
         preparedStatement.setDate(3, dateRetourEffective);

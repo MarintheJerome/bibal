@@ -8,15 +8,16 @@ import java.util.Date;
 public class Reservation {
     private Date dateReservation;
     private String etat;
-    private Oeuvre oeuvre;
     private Usager usager;
+    private Oeuvre oeuvre;
 
     public Reservation(){}
 
-    public Reservation(Usager usager, Oeuvre oeuvre, Date dateJour){
-        this.usager = usager;
+    public Reservation(Date dateReservation, String etat, Usager usager, Oeuvre oeuvre) {
+        this.dateReservation = dateReservation;
+        this.etat = etat;
         this.oeuvre = oeuvre;
-        this.dateReservation = dateJour;
+        this.usager = usager;
     }
 
     public Date getDateReservation() {
