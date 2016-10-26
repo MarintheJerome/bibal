@@ -14,6 +14,14 @@ public class Emprunt {
 
     public Emprunt(){}
 
+    public Emprunt(Date dateDebut, int duree, Date dateRetourEffective, Exemplaire exemplaire, Usager usager) {
+        this.dateDebut = dateDebut;
+        this.duree = duree;
+        this.dateRetourEffective = dateRetourEffective;
+        this.exemplaire = exemplaire;
+        this.usager = usager;
+    }
+
     public Date getDateDebut() {
         return dateDebut;
     }

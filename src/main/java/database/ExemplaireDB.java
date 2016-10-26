@@ -34,6 +34,13 @@ public class ExemplaireDB {
         }
     }
 
+    public int getMaxId() throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Exemplaire WHERE idExemplaire in (SELECT MAX(idExemplaire) FROM exemplaire GROUP by idExemplaire)");
+        ResultSet rs = preparedStatement.executeQuery();
+        rs.next();
+        return rs.getInt("idExemplaire");
+    }
+
     public void insert(String etatExemplaire, String ISBN) throws SQLException{
         PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO Exemplaire(etatExemplaire, ISBN) VALUES(?, ?)");
         preparedStatement.setString(1, etatExemplaire);

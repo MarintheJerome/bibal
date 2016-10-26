@@ -20,7 +20,7 @@ public class TestOeuvreDB {
 
     private static Connection connection;
     private static OeuvreDB oeuvreDB;
-    public static AuteurDB auteurDB;
+    private static AuteurDB auteurDB;
     private int idAuteur;
 
     private static void delete() throws SQLException{

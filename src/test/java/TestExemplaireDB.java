@@ -54,10 +54,7 @@ public class TestExemplaireDB {
     }
 
     public int getMaxID() throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Exemplaire WHERE idExemplaire in (SELECT MAX(idExemplaire) FROM exemplaire GROUP by idExemplaire)");
-        ResultSet rs = preparedStatement.executeQuery();
-        rs.next();
-        return rs.getInt("idExemplaire");
+        return exemplaireDB.getMaxId();
     }
 
     @AfterClass()
