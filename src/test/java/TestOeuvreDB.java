@@ -2,7 +2,6 @@ import database.AuteurDB;
 import database.Connexion;
 import database.OeuvreDB;
 import model.Oeuvre;
-import model.Usager;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
