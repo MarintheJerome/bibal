@@ -84,7 +84,7 @@ public class TestExemplaireDB {
         Exemplaire exemplaire = exemplaireDB.findById(maxId);
         assertNotNull(exemplaire);
         assertEquals("Abimé", exemplaire.getEtatExemplaire());
-        assertEquals(ISBN, exemplaire.getISBN());
+        assertEquals(ISBN, exemplaire.getOeuvre().getISBN());
     }
 
     @Test

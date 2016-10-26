@@ -6,14 +6,14 @@ package model;
 public class Exemplaire {
     private int idExemplaire;
     private String etatExemplaire;
-    private String ISBN;
+    private Oeuvre oeuvre;
 
     public Exemplaire(){}
 
-    public Exemplaire(int idExemplaire, String etatExemplaire, String ISBN){
+    public Exemplaire(int idExemplaire, String etatExemplaire, Oeuvre oeuvre){
         this.idExemplaire = idExemplaire;
         this.etatExemplaire = etatExemplaire;
-        this.ISBN = ISBN;
+        this.oeuvre = oeuvre;
     }
 
     public int getIdExemplaire() {
@@ -32,11 +32,11 @@ public class Exemplaire {
         this.etatExemplaire = etatExemplaire;
     }
 
-    public String getISBN() {
-        return ISBN;
+    public Oeuvre getOeuvre() {
+        return oeuvre;
     }
 
-    public void setISBN(String ISBN) {
-        this.ISBN = ISBN;
+    public void setOeuvre(Oeuvre oeuvre) {
+        this.oeuvre = oeuvre;
     }
 }

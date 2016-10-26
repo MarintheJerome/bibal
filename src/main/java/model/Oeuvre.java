@@ -14,13 +14,11 @@ public class Oeuvre {
     private Date dateEdition;
     private int nbReservation;
     private String resume;
-    private int idAuteur;
+    private Auteur auteur;
     private int numero;
     private int periodicite;
 
-    public Oeuvre(){
-
-    }
+    public Oeuvre(){}
 
     public Oeuvre(String ISBN, String nomOeuvre, String titre, Date dateParution, int nbReservation){
         this.ISBN = ISBN;
@@ -31,7 +29,7 @@ public class Oeuvre {
     }
 
     // Livre
-    public Oeuvre(String ISBN, String nomOeuvre, String titre, Date dateParution, int nbReservation, Date dateEdition, String resume, int idAuteur){
+    public Oeuvre(String ISBN, String nomOeuvre, String titre, Date dateParution, int nbReservation, Date dateEdition, String resume, Auteur auteur){
         this.ISBN = ISBN;
         this.nomOeuvre = nomOeuvre;
         this.titre = titre;
@@ -39,7 +37,7 @@ public class Oeuvre {
         this.nbReservation = nbReservation;
         this.dateEdition = dateEdition;
         this.resume = resume;
-        this.idAuteur = idAuteur;
+        this.auteur = auteur;
     }
 
     // Magazine
@@ -109,12 +107,12 @@ public class Oeuvre {
         this.resume = resume;
     }
 
-    public int getIdAuteur() {
-        return idAuteur;
+    public Auteur getAuteur() {
+        return auteur;
     }
 
-    public void setIdAuteur(int idAuteur) {
-        this.idAuteur = idAuteur;
+    public void setAuteur(Auteur auteur) {
+        this.auteur = auteur;
     }
 
     public int getNumero() {

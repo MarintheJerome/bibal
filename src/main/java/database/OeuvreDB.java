@@ -1,5 +1,6 @@
 package database;
 
+import model.Auteur;
 import model.Oeuvre;
 
 import java.sql.*;
@@ -10,9 +11,11 @@ import java.sql.*;
 public class OeuvreDB {
 
     private Connection connection;
+    private AuteurDB auteurDB;
 
     public OeuvreDB(){
         connection = Connexion.getStaticConnection();
+        auteurDB = new AuteurDB();
     }
 
     public Oeuvre findByISBN(String ISBN) throws SQLException {
@@ -46,8 +49,9 @@ public class OeuvreDB {
                 periodicite = periodiciteInteger;
             }
             // c'est un livre
-            if(dateEdition != null || resume != null || idAuteur != 0){
-                return new Oeuvre(ISBN, nomOeuvre, titre, dateParution, nbReservation, dateEdition, resume, idAuteur);
+            if((dateEdition != null || resume != null) && idAuteur != 0){
+                Auteur auteur = auteurDB.findById(idAuteur);
+                return new Oeuvre(ISBN, nomOeuvre, titre, dateParution, nbReservation, dateEdition, resume, auteur);
             }
 
             // c'est un magazine

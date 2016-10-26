@@ -1,6 +1,7 @@
 package database;
 
 import model.Exemplaire;
+import model.Oeuvre;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,9 +13,11 @@ import java.sql.SQLException;
  */
 public class ExemplaireDB {
     private Connection connection;
+    private OeuvreDB oeuvreDB;
 
     public ExemplaireDB(){
         connection = Connexion.getStaticConnection();
+        oeuvreDB = new OeuvreDB();
     }
 
     public Exemplaire findById(int idExemplaire) throws SQLException {
@@ -24,7 +27,8 @@ public class ExemplaireDB {
         if(rs.next()) {
             String etatExemplaire = rs.getString("etatExemplaire");
             String ISBN = rs.getString("ISBN");
-            return new Exemplaire(idExemplaire, etatExemplaire, ISBN);
+            Oeuvre oeuvre = oeuvreDB.findByISBN(ISBN);
+            return new Exemplaire(idExemplaire, etatExemplaire, oeuvre);
         }else{
             return null;
         }
