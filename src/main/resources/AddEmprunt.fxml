@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="263.0" prefWidth="417.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button layoutX="155.0" layoutY="213.0" mnemonicParsing="false" text="Faire Réservation" />
+      <Button fx:id="addEmprunt" layoutX="308.0" layoutY="213.0" mnemonicParsing="false" text="Ajouter" />
+      <Label layoutX="27.0" layoutY="41.0" text="Oeuvre :" />
+      <Label layoutX="27.0" layoutY="76.0" text="Usager :" />
+      <Label layoutX="27.0" layoutY="115.0" text="Exemplaire :" />
+      <Button fx:id="annuleAddEmprunt" layoutX="33.0" layoutY="213.0" mnemonicParsing="false" text="Annuler" />
+      <Label layoutX="27.0" layoutY="156.0" text="Durée :" />
+      <TextField fx:id="dureeEmprunt" disable="true" layoutX="124.0" layoutY="152.0" prefHeight="25.0" prefWidth="45.0" />
+      <ComboBox fx:id="addOeuvreEmpruntComboBox" layoutX="124.0" layoutY="37.0" prefHeight="25.0" prefWidth="260.0" />
+      <ComboBox fx:id="addUsagerEmpruntComboBox" layoutX="124.0" layoutY="72.0" prefHeight="25.0" prefWidth="260.0" />
+      <ComboBox fx:id="addExamplaireEmpruntComboBox" layoutX="124.0" layoutY="111.0" prefHeight="25.0" prefWidth="260.0" />
+   </children>
+</AnchorPane>

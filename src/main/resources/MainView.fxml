@@ -1,29 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+
 <VBox prefHeight="543.0" prefWidth="721.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainViewController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
         <Menu mnemonicParsing="false" text="Oeuvre">
           <items>
-            <MenuItem mnemonicParsing="false" text="Ajouter" />
-            <MenuItem mnemonicParsing="false" text="Modifier" />
-            <MenuItem mnemonicParsing="false" text="Quit" />
+            <MenuItem fx:id="addOeuvre" mnemonicParsing="false" text="Ajouter" />
+            <MenuItem fx:id="updateOeuvre" mnemonicParsing="false" text="Modifier" />
+            <MenuItem fx:id="deleteOeuvre" mnemonicParsing="false" text="Supprimer" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Usager">
           <items>
-            <MenuItem mnemonicParsing="false" text="Undo" />
-            <MenuItem mnemonicParsing="false" text="Redo" />
+            <MenuItem fx:id="addUsager" mnemonicParsing="false" text="Ajouter" />
+            <MenuItem fx:id="updateUsager" mnemonicParsing="false" text="Modifier" />
+            <MenuItem fx:id="deleteUsager" mnemonicParsing="false" text="Supprimer" />
           </items>
         </Menu>
+            <Menu mnemonicParsing="false" text="Emprunt">
+              <items>
+                <MenuItem fx:id="addEmprunt" mnemonicParsing="false" text="Ajouter" />
+                 <MenuItem fx:id="deleteEmprunt" mnemonicParsing="false" text="Retour" />
+              </items>
+            </Menu>
         <Menu mnemonicParsing="false" text="Réservation">
           <items>
-            <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+            <MenuItem fx:id="addReservation" mnemonicParsing="false" text="Ajouter" />
+            <MenuItem fx:id="deleteReservation" mnemonicParsing="false" text="Annuler" />
           </items>
         </Menu>
             <Menu mnemonicParsing="false" text="Informations">
@@ -33,14 +43,6 @@
             </Menu>
       </menus>
     </MenuBar>
-    <AnchorPane fx:id="panelView" maxHeight="-1.0" maxWidth="-1.0" prefHeight="467.0" prefWidth="702.0" VBox.vgrow="ALWAYS">
-      <children>
-        <Label alignment="CENTER" layoutX="155.0" layoutY="177.0" style="&#10;" text="Bibal Application du Moustache" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
-          <font>
-            <Font size="18.0" />
-          </font>
-        </Label>
-      </children>
-    </AnchorPane>
+    <AnchorPane fx:id="panelView" maxHeight="-1.0" maxWidth="-1.0" prefHeight="467.0" prefWidth="702.0" VBox.vgrow="ALWAYS" />
   </children>
 </VBox>

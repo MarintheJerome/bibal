@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="383.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="isbnOeuvreLabel" layoutX="25.0" layoutY="28.0" text="ISBN :" />
+      <Label fx:id="nomOeuvreLabel" layoutX="26.0" layoutY="73.0" text="Nom :" />
+      <Label fx:id="titreOeuvreLabel" layoutX="27.0" layoutY="113.0" text="Titre :" />
+      <Label fx:id="dateOeuvreLabel" layoutX="26.0" layoutY="155.0" text="Date :" />
+      <TextField fx:id="isbnOeuvre" layoutX="92.0" layoutY="24.0" />
+      <TextField fx:id="nomOeuvre" layoutX="93.0" layoutY="69.0" />
+      <TextField fx:id="titreOeuvre" layoutX="93.0" layoutY="109.0" />
+      <CheckBox fx:id="checkLivre" layoutX="42.0" layoutY="204.0" mnemonicParsing="false" text="Livre" />
+      <DatePicker fx:id="dateOeuvre" layoutX="92.0" layoutY="151.0" />
+      <CheckBox fx:id="checkMagazine" layoutX="167.0" layoutY="204.0" mnemonicParsing="false" text="Magazine" />
+      <Button fx:id="annuleAddOeuvreButton" layoutX="382.0" layoutY="333.0" mnemonicParsing="false" text="Annuler" />
+      <Button fx:id="addOeuvreButton" layoutX="500.0" layoutY="333.0" mnemonicParsing="false" text="Ajouter" />
+      <Label fx:id="numeroMagazine" layoutX="300.0" layoutY="28.0" text="Numéro :" />
+      <Label fx:id="periodeMagazine" layoutX="300.0" layoutY="73.0" text="Période :" />
+      <Label fx:id="dateLivreEdition" layoutX="300.0" layoutY="113.0" text="Date d'édition :" />
+      <Label fx:id="resumeLivre" layoutX="300.0" layoutY="155.0" text="Résumé :" />
+      <TextField fx:id="NumeroMagazine" layoutX="400.0" layoutY="24.0" />
+      <ComboBox fx:id="comboBoxMagazine" layoutX="399.0" layoutY="69.0" prefWidth="150.0" />
+      <DatePicker fx:id="dateEdition" layoutX="399.0" layoutY="109.0" />
+      <TextArea fx:id="ResumeLivreText" layoutX="360.0" layoutY="155.0" prefHeight="159.0" prefWidth="224.0" />
+   </children>
+</AnchorPane>
