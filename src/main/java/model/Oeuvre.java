@@ -17,15 +17,17 @@ public class Oeuvre {
     private Auteur auteur;
     private int numero;
     private String periodicite;
+    private String type;
 
     public Oeuvre(){}
 
-    public Oeuvre(String ISBN, String nomOeuvre, String titre, Date dateParution, int nbReservation){
+    public Oeuvre(String ISBN, String nomOeuvre, String titre, Date dateParution, int nbReservation, String type){
         this.ISBN = ISBN;
         this.nomOeuvre = nomOeuvre;
         this.titre = titre;
         this.dateParution = dateParution;
         this.nbReservation = nbReservation;
+        this.type = type;
     }
 
     // Livre
@@ -38,6 +40,7 @@ public class Oeuvre {
         this.dateEdition = dateEdition;
         this.resume = resume;
         this.auteur = auteur;
+        this.type = "Livre";
     }
 
     // Magazine
@@ -49,6 +52,7 @@ public class Oeuvre {
         this.nbReservation = nbReservation;
         this.numero = numero;
         this.periodicite = periodicite;
+        this.type = "Magazine";
     }
 
     public String getISBN() {

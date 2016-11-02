@@ -2,11 +2,13 @@ package database;
 
 import model.Exemplaire;
 import model.Oeuvre;
+import model.Usager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * Created by jerome on 26/10/2016.
@@ -66,5 +68,16 @@ public class ExemplaireDB {
         PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE from Exemplaire WHERE ISBN = ?");
         preparedStatement.setString(1, ISBN);
         preparedStatement.executeUpdate();
+    }
+
+    public ArrayList<Exemplaire> selectAll(String ISBN) throws SQLException {
+        ArrayList<Exemplaire> toReturn = new ArrayList<Exemplaire>();
+        PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM exemplaire WHERE ISBN = ?");
+        preparedStatement.setString(1, ISBN);
+        ResultSet rs = preparedStatement.executeQuery();
+        while(rs.next()) {
+            toReturn.add(this.findById(rs.getInt("idExemplaire")));
+        }
+        return toReturn;
     }
 }

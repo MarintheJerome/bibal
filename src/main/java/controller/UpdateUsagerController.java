@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import model.Usager;
 
 import java.net.URL;
@@ -90,5 +91,11 @@ public class UpdateUsagerController implements Initializable {
 
     private boolean verifValeurs() {
         return (!prenomText.getText().isEmpty() && !nameText.getText().isEmpty());
+    }
+
+    @FXML
+    public void annuler(){
+        AnchorPane parent = (AnchorPane) nameText.getParent().getParent();
+        parent.getChildren().clear();
     }
 }

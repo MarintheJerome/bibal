@@ -57,7 +57,7 @@ public class OeuvreDB {
             }
 
             // ni livre ni magazine
-            return new Oeuvre(ISBN, nomOeuvre, titre, dateParution, nbReservation);
+            return new Oeuvre(ISBN, nomOeuvre, titre, dateParution, nbReservation, "Non précisé");
         }else{
             return null;
         }

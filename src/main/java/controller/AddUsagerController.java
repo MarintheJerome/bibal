@@ -69,7 +69,8 @@ public class AddUsagerController implements Initializable {
 
     @FXML
     public void annuler(){
-
+        AnchorPane parent = (AnchorPane) nameText.getParent().getParent();
+        parent.getChildren().clear();
     }
 }
 

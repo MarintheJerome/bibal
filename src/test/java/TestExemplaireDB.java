@@ -9,10 +9,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.sql.*;
+import java.util.ArrayList;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 /**
  * Created by jerome on 26/10/2016.
@@ -101,5 +100,14 @@ public class TestExemplaireDB {
 
         exemplaireDB.delete(maxId);
         assertNull(exemplaireDB.findById(maxId));
+    }
+
+    @Test
+    public void testSelectAll() throws SQLException {
+        exemplaireDB.insert("Abimé", ISBN);
+        exemplaireDB.insert("Abimé", ISBN);
+        exemplaireDB.insert("Emprunté", ISBN);
+        ArrayList<Exemplaire> exemplaires = exemplaireDB.selectAll(ISBN);
+        assertTrue(exemplaires.size() > 0 && exemplaires.size() == 3);
     }
 }

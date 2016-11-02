@@ -16,7 +16,7 @@
       <TextField fx:id="prenomText" layoutX="101.0" layoutY="97.0" />
       <TextField fx:id="adresseText" layoutX="101.0" layoutY="172.0" />
       <TextField fx:id="mailText" layoutX="101.0" layoutY="133.0" />
-      <Button fx:id="annuleUpdateUsagerButton" layoutX="92.0" layoutY="230.0" mnemonicParsing="false" text="Annuler" />
+      <Button fx:id="annuleUpdateUsagerButton" onAction="#annuler" layoutX="92.0" layoutY="230.0" mnemonicParsing="false" text="Annuler" />
       <Button fx:id="updateUsagerButton" onAction="#update" layoutX="250.0" layoutY="230.0" mnemonicParsing="false" text="Modifier" />
       <ComboBox fx:id="usagerComboBox" onAction="#clickComboBox" layoutX="101.0" layoutY="14.0" prefWidth="150.0" />
       <Label fx:id="usagerLabel" layoutX="45.0" layoutY="18.0" text="Usager" />
