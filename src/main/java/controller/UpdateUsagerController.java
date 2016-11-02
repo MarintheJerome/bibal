@@ -81,8 +81,6 @@ public class UpdateUsagerController implements Initializable {
             mailText.setText(adresseText.getText());
             remplirComboBox();
             usagerComboBox.setValue(idUsager+": "+nameText.getText()+" "+prenomText.getText());
-
-
         }
         else{
             Popup.popUpError("Impossible de modifier", "Veuillez rentrer un nom et un prénom.");

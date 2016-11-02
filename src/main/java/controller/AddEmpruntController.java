@@ -3,24 +3,28 @@ package controller;
 /**
  * Created by jerome on 02/11/2016.
  */
-import database.EmpruntDB;
-import database.ExemplaireDB;
-import database.OeuvreDB;
-import database.UsagerDB;
+import common.Popup;
+import common.Variable;
+import database.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import model.Emprunt;
 import model.Exemplaire;
 import model.Oeuvre;
 import model.Usager;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.ResourceBundle;
+import java.sql.Date;
 
 public class AddEmpruntController implements Initializable {
 
@@ -28,6 +32,7 @@ public class AddEmpruntController implements Initializable {
     private UsagerDB usagerDB;
     private ExemplaireDB exemplaireDB;
     private EmpruntDB empruntDB;
+    private ReservationDB reservationDB;
 
     private ArrayList<Oeuvre> oeuvres;
     private ArrayList<Usager> usagers;
@@ -56,6 +61,8 @@ public class AddEmpruntController implements Initializable {
         oeuvreDB = new OeuvreDB();
         exemplaireDB = new ExemplaireDB();
         usagerDB = new UsagerDB();
+        reservationDB = new ReservationDB();
+        empruntDB = new EmpruntDB();
 
         remplirComboBox();
     }
@@ -82,14 +89,55 @@ public class AddEmpruntController implements Initializable {
 
     @FXML
     public void selectOeuvre() throws SQLException {
-        String ISBN = addOeuvreEmpruntComboBox.getSelectionModel().getSelectedItem().toString().split(":")[0];
+        String ISBN = addOeuvreEmpruntComboBox.getSelectionModel().getSelectedItem().split(":")[0];
         exemplaires = exemplaireDB.selectAll(ISBN);
         for(Exemplaire exemplaire : exemplaires){
-            addExamplaireEmpruntComboBox.getItems().add(exemplaire.getIdExemplaire());
+            if(!exemplaire.getEtatExemplaire().equals("Emprunté")){
+                addExamplaireEmpruntComboBox.getItems().add(exemplaire.getIdExemplaire());
+            }
         }
         Oeuvre oeuvre = oeuvreDB.findByISBN(ISBN);
-        if(oeuvre.getAuteur() != null) {
-            dureeEmprunt.setText("14");
+        if(oeuvre.getType().equals("Livre")) {
+            dureeEmprunt.setText(String.valueOf(Variable.EMPRUNTLIVRE));
+        }
+        if(oeuvre.getType().equals("Magazine")){
+            dureeEmprunt.setText(String.valueOf(Variable.EMPUNTMAGAZINE));
+        }
+    }
+
+    @FXML
+    public void reservation() throws SQLException {
+        if(addUsagerEmpruntComboBox.getSelectionModel().getSelectedItem() != null && addOeuvreEmpruntComboBox.getSelectionModel().getSelectedItem() != null){
+            int idUsager = Integer.parseInt(addUsagerEmpruntComboBox.getSelectionModel().getSelectedItem().split(":")[0]);
+            String ISBN = addOeuvreEmpruntComboBox.getSelectionModel().getSelectedItem().split(":")[0];
+            reservationDB.insert(idUsager, ISBN, new Date(Calendar.getInstance().getTime().getTime()), "En cours");
+            Popup.popUpError("Reservation créée", "La réservation a réussi.");
+        }else{
+            Popup.popUpError("Impossible de faire la réservation", "Veuillez selectionner un usager et une oeuvre.");
+        }
+    }
+
+    @FXML
+    public void addEmprunt() throws SQLException {
+        if(addUsagerEmpruntComboBox.getSelectionModel().getSelectedItem() != null && addExamplaireEmpruntComboBox.getSelectionModel().getSelectedItem() != null){
+
+            int idUsager =  Integer.parseInt(addUsagerEmpruntComboBox.getSelectionModel().getSelectedItem().split(":")[0]);
+            int idExemplaire = addExamplaireEmpruntComboBox.getSelectionModel().getSelectedItem();
+            Emprunt emprunt = empruntDB.findByIds(idUsager, idExemplaire);
+            if(emprunt == null || emprunt.getDateRetourEffective().compareTo(new Date(Calendar.getInstance().getTime().getTime())) < 0){
+                int duree = Integer.parseInt(dureeEmprunt.getText());
+                Date dateNow = new Date(Calendar.getInstance().getTime().getTime());
+                LocalDate localDate = dateNow.toLocalDate();
+                localDate = localDate.plusDays(duree);
+                empruntDB.insert(idUsager, idExemplaire, dateNow, duree, Date.valueOf(localDate));
+                Popup.popUpInfo("Emprunt crée", "L'emprunt a réussi.");
+            }
+            else{
+                Popup.popUpError("Impossible de réaliser l'emprunt.", "Exemplaire déjà reservé par l'utilisateur.");
+            }
+        }
+        else{
+            Popup.popUpError("Impossible de faire l'emprunt", "Veuillez selectionner un usager et un exemplaire.");
         }
     }
 

@@ -9,8 +9,8 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="263.0" prefWidth="417.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddEmpruntController">
    <children>
-      <Button layoutX="155.0" layoutY="213.0" mnemonicParsing="false" text="Faire Réservation" />
-      <Button fx:id="addEmprunt" layoutX="308.0" layoutY="213.0" mnemonicParsing="false" text="Ajouter" />
+      <Button layoutX="155.0" onAction="#reservation" layoutY="213.0" mnemonicParsing="false" text="Faire Réservation" />
+      <Button fx:id="addEmprunt" onAction="#addEmprunt" layoutX="308.0" layoutY="213.0" mnemonicParsing="false" text="Ajouter" />
       <Label layoutX="27.0" layoutY="41.0" text="Oeuvre :" />
       <Label layoutX="27.0" layoutY="76.0" text="Usager :" />
       <Label layoutX="27.0" layoutY="115.0" text="Exemplaire :" />

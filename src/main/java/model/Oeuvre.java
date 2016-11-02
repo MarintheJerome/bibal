@@ -142,7 +142,7 @@ public class Oeuvre {
     public void setType(String type) {
         this.type = type;
     }
-    
+
     public Oeuvre identification(String titre){
         return null;
     }
