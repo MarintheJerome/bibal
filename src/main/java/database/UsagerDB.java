@@ -1,11 +1,13 @@
 package database;
 
+import model.Oeuvre;
 import model.Usager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * Created by jerome on 19/10/2016.
@@ -67,5 +69,15 @@ public class UsagerDB {
         PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM usager WHERE idUsager = ?");
         preparedStatement.setInt(1, id);
         preparedStatement.executeUpdate();
+    }
+
+    public ArrayList<Usager> selectAll() throws SQLException{
+        ArrayList<Usager> toReturn = new ArrayList<Usager>();
+        PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM usager");
+        ResultSet rs = preparedStatement.executeQuery();
+        while(rs.next()) {
+            toReturn.add(this.findById(rs.getInt("idUsager")));
+        }
+        return toReturn;
     }
 }

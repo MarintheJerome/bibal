@@ -1,5 +1,6 @@
 import database.Connexion;
 import database.UsagerDB;
+import model.Oeuvre;
 import model.Usager;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -11,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * Created by Yhugo on 19/10/2016.
@@ -89,5 +91,13 @@ public class TestUsagerDB {
         int id = usagerDB.getIdFromUsager("Pierson", "Guillaume", "guillaume.pierson@gmail.com", "5 rue du rosier");
         usagerDB.delete(id);
         assertNull(usagerDB.findById(id));
+    }
+
+    @Test
+    public void testSelectAll() throws SQLException{
+        ArrayList<Usager> usagers = usagerDB.selectAll();
+        assertTrue(usagers.size() > 0);
+        assertTrue(usagers.size() == 1);
+        assertEquals(usagers.get(0).getNom(), "Pierson");
     }
 }
