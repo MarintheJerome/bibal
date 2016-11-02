@@ -36,8 +36,8 @@ public class AuteurDB {
         preparedStatement.setString(1, nomAuteur);
         preparedStatement.setString(2, prenomAuteur);
         ResultSet rs = preparedStatement.executeQuery();
-        rs.next();
-        return rs.getInt("idAuteur");
+        if(rs.next()) return rs.getInt("idAuteur");
+        return -1;
     }
 
     public void insert(String nomAuteur, String prenomAuteur) throws SQLException {
