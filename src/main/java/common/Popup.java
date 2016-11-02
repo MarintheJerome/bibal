@@ -8,9 +8,17 @@ import javafx.stage.Stage;
  */
 public class Popup {
 
-    public static void popUpInfo(Stage stage, String titre, String message){
+    public static void popUpInfo(String titre, String message){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.initOwner(stage);
+        alert.setTitle(titre);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+
+        alert.showAndWait();
+    }
+
+    public static void popUpError(String titre, String message){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(titre);
         alert.setHeaderText(null);
         alert.setContentText(message);
