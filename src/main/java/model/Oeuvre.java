@@ -135,6 +135,14 @@ public class Oeuvre {
         this.periodicite = periodicite;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+    
     public Oeuvre identification(String titre){
         return null;
     }
