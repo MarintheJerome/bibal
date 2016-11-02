@@ -4,6 +4,7 @@ import model.Auteur;
 import model.Oeuvre;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  * Created by jerome on 21/10/2016.
@@ -210,5 +211,15 @@ public class OeuvreDB {
         PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM Oeuvre WHERE ISBN = ?");
         preparedStatement.setString(1, ISBN);
         preparedStatement.executeUpdate();
+    }
+
+    public ArrayList<Oeuvre> selectAll() throws SQLException {
+        ArrayList<Oeuvre> toReturn = new ArrayList<Oeuvre>();
+        PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM oeuvre");
+        ResultSet rs = preparedStatement.executeQuery();
+        while(rs.next()) {
+            toReturn.add(this.findByISBN(rs.getString("ISBN")));
+        }
+        return toReturn;
     }
 }

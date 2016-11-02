@@ -8,10 +8,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.sql.*;
+import java.util.ArrayList;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 /**
  * Created by jerome on 25/10/2016.
@@ -108,5 +107,13 @@ public class TestOeuvreDB {
         String ISBN = oeuvreDB.getISBNFromOeuvre("Harry Potter", "Harry Potter et la chambre des secrets", new Date(12000), 1, new Date(13000), "Harry va dans la chambre des secrets oO", idAuteur, null, null);
         oeuvreDB.delete(ISBN);
         assertNull(oeuvreDB.findByISBN(ISBN));
+    }
+
+    @Test
+    public void testSelectAll() throws SQLException{
+        ArrayList<Oeuvre> oeuvres = oeuvreDB.selectAll();
+        assertTrue(oeuvres.size() > 0);
+        assertTrue(oeuvres.size() == 2);
+        assertEquals(oeuvres.get(0).getAuteur().getNomAuteur(), "Rowling");
     }
 }

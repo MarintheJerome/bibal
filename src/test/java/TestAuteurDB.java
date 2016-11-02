@@ -22,7 +22,9 @@ public class TestAuteurDB {
     private static AuteurDB auteurDB;
 
     private static void delete() throws SQLException{
-        PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM auteur");
+        PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM Oeuvre");
+        preparedStatement.executeUpdate();
+        preparedStatement = connection.prepareStatement("DELETE FROM auteur");
         preparedStatement.executeUpdate();
     }
 
