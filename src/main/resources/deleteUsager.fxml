@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="277.0" prefWidth="408.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="277.0" prefWidth="408.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DeleteUsagerController">
    <children>
       <Label fx:id="nameLabel" layoutX="44.0" layoutY="65.0" text="Nom :" />
       <Label fx:id="prenomLabel" layoutX="44.0" layoutY="101.0" text="Prénom :" />
@@ -17,8 +17,8 @@
       <TextField fx:id="adresseText" layoutX="101.0" layoutY="172.0" />
       <TextField fx:id="mailText" layoutX="101.0" layoutY="133.0" />
       <Button fx:id="annuleDeleteOeuvreButton" layoutX="92.0" layoutY="230.0" mnemonicParsing="false" text="Annuler" />
-      <Button fx:id="deleteUsagerButton" layoutX="250.0" layoutY="230.0" mnemonicParsing="false" text="Supprimer" />
-      <ComboBox fx:id="usagerComboBox" layoutX="101.0" layoutY="14.0" prefWidth="150.0" />
+      <Button fx:id="deleteUsagerButton" onAction="#delete" layoutX="250.0" layoutY="230.0" mnemonicParsing="false" text="Supprimer" />
+      <ComboBox fx:id="usagerComboBox" onAction="#clickComboBox" layoutX="101.0" layoutY="14.0" prefWidth="150.0" />
       <Label fx:id="usagerLabel" layoutX="45.0" layoutY="18.0" text="Usager" />
    </children>
 </AnchorPane>

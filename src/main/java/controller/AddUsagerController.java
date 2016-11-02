@@ -6,17 +6,20 @@ package controller;
 import common.Popup;
 import database.UsagerDB;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class UsagerController implements Initializable {
+public class AddUsagerController implements Initializable {
 
     private Stage stage;
 
@@ -62,6 +65,11 @@ public class UsagerController implements Initializable {
 
     private boolean verifValeurs() {
         return (!prenomText.getText().isEmpty() && !nameText.getText().isEmpty());
+    }
+
+    @FXML
+    public void annuler(){
+
     }
 }
 
