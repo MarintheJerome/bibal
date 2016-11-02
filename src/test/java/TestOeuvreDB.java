@@ -43,7 +43,7 @@ public class TestOeuvreDB {
         auteurDB.insert("Rowling", "JK");
         idAuteur = auteurDB.getIdFromAuteur("Rowling", "JK");
         oeuvreDB.insertLivre("978-1-2345-6789-7", "Harry Potter", "Harry Potter et la chambre des secrets", new Date(12000), 1, new Date(13000), "Harry va dans la chambre des secrets oO", idAuteur);
-        oeuvreDB.insertMagasine("978-1-2345-6789-8", "Nous deux", "Nous deux numéro 3", new Date(2006, 11, 17), 3, 3, 7);
+        oeuvreDB.insertMagasine("978-1-2345-6789-8", "Nous deux", "Nous deux numéro 3", new Date(2006, 11, 17), 3, 3, "hebdomadaire");
     }
 
     @AfterClass()

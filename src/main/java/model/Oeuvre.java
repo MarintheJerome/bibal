@@ -16,7 +16,7 @@ public class Oeuvre {
     private String resume;
     private Auteur auteur;
     private int numero;
-    private int periodicite;
+    private String periodicite;
 
     public Oeuvre(){}
 
@@ -41,7 +41,7 @@ public class Oeuvre {
     }
 
     // Magazine
-    public Oeuvre(String ISBN, String nomOeuvre, String titre, Date dateParution, int nbReservation, int numero, int periodicite){
+    public Oeuvre(String ISBN, String nomOeuvre, String titre, Date dateParution, int nbReservation, int numero, String periodicite){
         this.ISBN = ISBN;
         this.nomOeuvre = nomOeuvre;
         this.titre = titre;
@@ -123,11 +123,11 @@ public class Oeuvre {
         this.numero = numero;
     }
 
-    public int getPeriodicite() {
+    public String getPeriodicite() {
         return periodicite;
     }
 
-    public void setPeriodicite(int periodicite) {
+    public void setPeriodicite(String periodicite) {
         this.periodicite = periodicite;
     }
 

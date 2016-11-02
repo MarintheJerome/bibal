@@ -44,11 +44,7 @@ public class OeuvreDB {
             if(numeroInteger != null){
                 numero = numeroInteger;
             }
-            Integer periodiciteInteger = (Integer) rs.getObject("periodicite");
-            int periodicite = 0;
-            if(periodiciteInteger != null){
-                periodicite = periodiciteInteger;
-            }
+            String periodicite = rs.getString("periodicite");
             // c'est un livre
             if((dateEdition != null || resume != null) && idAuteur != 0){
                 Auteur auteur = auteurDB.findById(idAuteur);
@@ -56,7 +52,7 @@ public class OeuvreDB {
             }
 
             // c'est un magazine
-            if(numero !=  0 || periodicite != 0){
+            if(numero !=  0 || periodicite != null){
                 return new Oeuvre(ISBN, nomOeuvre, titre, dateParution, nbReservation, numero, periodicite);
             }
 
@@ -132,7 +128,7 @@ public class OeuvreDB {
         preparedStatement.executeUpdate();
     }
 
-    public void insertMagasine(String ISBN, String nomOeuvre, String titre, Date dateParution, int nbReservation, Integer numero, Integer periodicite) throws SQLException{
+    public void insertMagasine(String ISBN, String nomOeuvre, String titre, Date dateParution, int nbReservation, Integer numero, String periodicite) throws SQLException{
         PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO Oeuvre(ISBN, nomOeuvre, titre, dateParution, nbReservation, numero, periodicite) VALUES (?, ?, ?, ?, ?, ?, ?)");
         preparedStatement.setString(1, ISBN);
         preparedStatement.setString(2, nomOeuvre);
@@ -140,11 +136,11 @@ public class OeuvreDB {
         preparedStatement.setDate(4, dateParution);
         preparedStatement.setInt(5, nbReservation);
         preparedStatement.setInt(6, numero);
-        preparedStatement.setInt(7, periodicite);
+        preparedStatement.setString(7, periodicite);
         preparedStatement.executeUpdate();
     }
 
-    public void insertAll(String ISBN, String nomOeuvre, String titre, Date dateParution, int nbReservation, Date dateEdition, String resume, Integer idAuteur, Integer numero, Integer periodicite) throws SQLException {
+    public void insertAll(String ISBN, String nomOeuvre, String titre, Date dateParution, int nbReservation, Date dateEdition, String resume, Integer idAuteur, Integer numero, String periodicite) throws SQLException {
         PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO Oeuvre(ISBN, nomOeuvre, titre, dateParution, nbReservation, dateEdition, resume, numero, periodicite, idAuteur) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         preparedStatement.setString(1, ISBN);
         preparedStatement.setString(2, nomOeuvre);
@@ -155,11 +151,11 @@ public class OeuvreDB {
         preparedStatement.setString(7, resume);
         preparedStatement.setInt(8, idAuteur);
         preparedStatement.setInt(9, numero);
-        preparedStatement.setInt(10, periodicite);
+        preparedStatement.setString(10, periodicite);
         preparedStatement.executeUpdate();
     }
 
-    public void update(String ISBN, String nomOeuvre, String titre, Date dateParution, int nbReservation, Date dateEdition, String resume, Integer idAuteur, Integer numero, Integer periodicite) throws SQLException{
+    public void update(String ISBN, String nomOeuvre, String titre, Date dateParution, int nbReservation, Date dateEdition, String resume, Integer idAuteur, Integer numero, String periodicite) throws SQLException{
         String requete = "UPDATE Oeuvre SET nomOeuvre = ?, titre = ?, dateParution = ?, nbReservation = ?";
         if(dateEdition != null){
             requete += ", dateEdition = ?";
@@ -201,7 +197,7 @@ public class OeuvreDB {
         }
         if(periodicite != null){
             compteur++;
-            preparedStatement.setInt(9, periodicite);
+            preparedStatement.setString(9, periodicite);
         }
         preparedStatement.setString(5+compteur, ISBN);
         preparedStatement.executeUpdate();
