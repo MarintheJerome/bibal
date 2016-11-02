@@ -15,7 +15,6 @@ import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 /**
@@ -49,6 +48,12 @@ public class AddOeuvreController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         checkLivre.setOnAction(checker());
         checkMagazine.setOnAction(checker());
+        ResumeLivreText.setDisable(true);
+        dateEdition.setDisable(true);
+        comboBoxMagazine.setDisable(true);
+        NumeroMagazine.setDisable(true);
+        prenomAuteurOeuvre.setDisable(true);
+        nomAuteurOeuvre.setDisable(true);
         comboBoxMagazine.getItems().addAll("Journalier","Hebdomadaire","Mensuel","Bimensuel","Trimestriel");
     }
 
@@ -60,27 +65,23 @@ public class AddOeuvreController implements Initializable {
                     checkMagazine.setSelected(false);
                     ResumeLivreText.setDisable(false);
                     dateEdition.setDisable(false);
-                    comboBoxMagazine.setDisable(true);
-                    NumeroMagazine.setDisable(true);
                     nomAuteurOeuvre.setDisable(false);
                     prenomAuteurOeuvre.setDisable(false);
+                }
+                if(!checkLivre.isSelected()){
+                    ResumeLivreText.setDisable(true);
+                    dateEdition.setDisable(true);
+                    nomAuteurOeuvre.setDisable(true);
+                    prenomAuteurOeuvre.setDisable(true);
                 }
                 if(checkMagazine.isSelected()){
                     checkLivre.setSelected(false);
-                    ResumeLivreText.setDisable(true);
-                    dateEdition.setDisable(true);
-                    comboBoxMagazine.setDisable(false);
-                    NumeroMagazine.setDisable(true);
-                    prenomAuteurOeuvre.setDisable(true);
-                    nomAuteurOeuvre.setDisable(true);
-                }
-                if(!checkMagazine.isSelected() && !checkLivre.isSelected()){
-                    ResumeLivreText.setDisable(false);
-                    dateEdition.setDisable(false);
                     comboBoxMagazine.setDisable(false);
                     NumeroMagazine.setDisable(false);
-                    prenomAuteurOeuvre.setDisable(false);
-                    nomAuteurOeuvre.setDisable(false);
+                }
+                if(!checkMagazine.isSelected()){
+                    comboBoxMagazine.setDisable(true);
+                    NumeroMagazine.setDisable(true);
                 }
             }
         };
@@ -99,8 +100,10 @@ public class AddOeuvreController implements Initializable {
             if(checkLivre.isSelected()) {
                 if (!nomAuteurOeuvre.getText().isEmpty() && !prenomAuteurOeuvre.getText().isEmpty()) {
                     int auteur = adb.getIdFromAuteur(nomAuteurOeuvre.getText(), prenomAuteurOeuvre.getText());
-                    if (auteur == -1) adb.insert(nomAuteurOeuvre.getText(), prenomAuteurOeuvre.getText());
-                    auteur = adb.getIdFromAuteur(nomAuteurOeuvre.getText(), prenomAuteurOeuvre.getText());
+                    if (auteur == -1){
+                        adb.insert(nomAuteurOeuvre.getText(), prenomAuteurOeuvre.getText());
+                        auteur = adb.getIdFromAuteur(nomAuteurOeuvre.getText(), prenomAuteurOeuvre.getText());
+                    }
                     odb.insertLivre(isbnOeuvre.getText(), nomOeuvre.getText(), titreOeuvre.getText(),
                             java.sql.Date.valueOf(dateOeuvre.getValue()), 0,
                             java.sql.Date.valueOf(dateEdition.getValue()), ResumeLivreText.getText(), auteur);
@@ -111,7 +114,16 @@ public class AddOeuvreController implements Initializable {
                 }
             }
             if(checkMagazine.isSelected()){
-                odb.insertMagasine(isbnOeuvre.getText(), nomOeuvre.getText(), titreOeuvre.getText(),java.sql.Date.valueOf(dateOeuvre.getValue()),0, Integer.parseInt(NumeroMagazine.getText()), comboBoxMagazine.getValue());
+                if(!NumeroMagazine.getText().equals("") && !comboBoxMagazine.getValue().equals("")){
+                    odb.insertMagasine(isbnOeuvre.getText(), nomOeuvre.getText(), titreOeuvre.getText(),java.sql.Date.valueOf(dateOeuvre.getValue()),0, Integer.parseInt(NumeroMagazine.getText()), comboBoxMagazine.getValue());
+                    Popup.popUpInfo("Ajout", "Vous avez correctement ajouter un magazine");
+                    refresh();
+                }else{
+                    Popup.popUpError("Erreur", "Renseignement magazine non mis.");
+                }
+            }
+            if(!checkLivre.isSelected() && !checkMagazine.isSelected()) {
+                Popup.popUpError("Erreur", "Pas de choix fait entre.");
             }
         }else{
             Popup.popUpError("Erreur", "Un attribut n'est pas mis.");

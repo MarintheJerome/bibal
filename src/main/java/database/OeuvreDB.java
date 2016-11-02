@@ -178,28 +178,28 @@ public class OeuvreDB {
         preparedStatement.setString(2, titre);
         preparedStatement.setDate(3, dateParution);
         preparedStatement.setInt(4, nbReservation);
-        int compteur = 0;
+        int compteur = 5;
         if(dateEdition != null){
+            preparedStatement.setDate(compteur, dateEdition);
             compteur++;
-            preparedStatement.setDate(5, dateEdition);
         }
         if(resume != null){
+            preparedStatement.setString(compteur, resume);
             compteur++;
-            preparedStatement.setString(6, resume);
         }
         if(idAuteur != null){
+            preparedStatement.setInt(compteur, idAuteur);
             compteur++;
-            preparedStatement.setInt(7, idAuteur);
         }
         if(numero != null){
+            preparedStatement.setInt(compteur, numero);
             compteur++;
-            preparedStatement.setInt(8, numero);
         }
         if(periodicite != null){
+            preparedStatement.setString(compteur, periodicite);
             compteur++;
-            preparedStatement.setString(9, periodicite);
         }
-        preparedStatement.setString(5+compteur, ISBN);
+        preparedStatement.setString(compteur, ISBN);
         preparedStatement.executeUpdate();
     }
 
