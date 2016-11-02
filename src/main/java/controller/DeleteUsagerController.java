@@ -1,14 +1,14 @@
 package controller;
 
-import common.Popup;
-import database.UsagerDB;
-import javafx.fxml.Initializable;
-
 /**
  * Created by jerome on 02/11/2016.
  */
+import database.UsagerDB;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.Usager;
 
@@ -17,7 +17,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class UpdateUsagerController implements Initializable {
+public class DeleteUsagerController implements Initializable {
 
     private UsagerDB usagerDB;
 
@@ -34,6 +34,12 @@ public class UpdateUsagerController implements Initializable {
 
     @FXML
     private TextField mailText;
+
+    @FXML
+    private Button annuleDeleteOeuvreButton;
+
+    @FXML
+    private Button deleteUsagerButton;
 
     @FXML
     private ComboBox<String> usagerComboBox;
@@ -61,34 +67,25 @@ public class UpdateUsagerController implements Initializable {
         if(usagerComboBox.getItems().size() > 0){
             int idUsager = Integer.parseInt(usagerComboBox.getSelectionModel().getSelectedItem().toString().split(":")[0]);
             Usager usager = usagerDB.findById(idUsager);
-            nameText.setText(usager.getNom());
             prenomText.setText(usager.getPrenom());
+            nameText.setText(usager.getNom());
             mailText.setText(usager.getMail());
             adresseText.setText(usager.getAdresse());
         }
     }
 
     @FXML
-    public void update() throws SQLException{
-        if(verifValeurs()){
+    public void delete() throws SQLException{
+        if(usagerComboBox.getItems().size() > 0){
             int idUsager = Integer.parseInt(usagerComboBox.getSelectionModel().getSelectedItem().toString().split(":")[0]);
-            usagerDB.update(idUsager, nameText.getText(), prenomText.getText(), mailText.getText(), adresseText.getText());
-            Popup.popUpInfo("Modification réussie", "L'utilisateur a été modifié.");
-            prenomText.setText(prenomText.getText());
-            nameText.setText(nameText.getText());
-            adresseText.setText(mailText.getText());
-            mailText.setText(adresseText.getText());
+            usagerDB.delete(idUsager);
             remplirComboBox();
-            usagerComboBox.setValue(idUsager+": "+nameText.getText()+" "+prenomText.getText());
-
-
+            prenomText.setText("");
+            nameText.setText("");
+            adresseText.setText("");
+            mailText.setText("");
+            usagerComboBox.setValue(null);
         }
-        else{
-            Popup.popUpError("Impossible de modifier", "Veuillez rentrer un nom et un prénom.");
-        }
-    }
-
-    private boolean verifValeurs() {
-        return (!prenomText.getText().isEmpty() && !nameText.getText().isEmpty());
     }
 }
+
