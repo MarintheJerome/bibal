@@ -3,6 +3,7 @@ package controller;
 /**
  * Created by jerome on 02/11/2016.
  */
+import com.sun.org.apache.xml.internal.security.algorithms.implementations.IntegrityHmac;
 import common.Popup;
 import common.Variable;
 import database.*;
@@ -54,7 +55,7 @@ public class AddEmpruntController implements Initializable {
     private ComboBox<String> addUsagerEmpruntComboBox;
 
     @FXML
-    private ComboBox<Integer> addExamplaireEmpruntComboBox;
+    private ComboBox<String> addExamplaireEmpruntComboBox;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -91,9 +92,10 @@ public class AddEmpruntController implements Initializable {
     public void selectOeuvre() throws SQLException {
         String ISBN = addOeuvreEmpruntComboBox.getSelectionModel().getSelectedItem().split(":")[0];
         exemplaires = exemplaireDB.selectAll(ISBN);
+
         for(Exemplaire exemplaire : exemplaires){
             if(!exemplaire.getEtatExemplaire().equals("Emprunté") && !exemplaire.getEtatExemplaire().equals("Mauvais")){
-                addExamplaireEmpruntComboBox.getItems().add(exemplaire.getIdExemplaire());
+                addExamplaireEmpruntComboBox.getItems().add("Exemplaire:"+exemplaire.getIdExemplaire());
             }
         }
         Oeuvre oeuvre = oeuvreDB.findByISBN(ISBN);
@@ -122,7 +124,7 @@ public class AddEmpruntController implements Initializable {
         if(addUsagerEmpruntComboBox.getSelectionModel().getSelectedItem() != null && addExamplaireEmpruntComboBox.getSelectionModel().getSelectedItem() != null){
 
             int idUsager =  Integer.parseInt(addUsagerEmpruntComboBox.getSelectionModel().getSelectedItem().split(":")[0]);
-            int idExemplaire = addExamplaireEmpruntComboBox.getSelectionModel().getSelectedItem();
+            int idExemplaire = Integer.parseInt(addExamplaireEmpruntComboBox.getSelectionModel().getSelectedItem().split(":")[1]);
             Emprunt emprunt = empruntDB.findByIds(idUsager, idExemplaire);
             if(emprunt == null || emprunt.getDateRetourPrevue().compareTo(new Date(Calendar.getInstance().getTime().getTime())) < 0){
                 Exemplaire exemplaire = exemplaireDB.findById(idExemplaire);
