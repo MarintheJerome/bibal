@@ -10,13 +10,18 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
+-- Export de la structure de la base pour bibal
+CREATE DATABASE IF NOT EXISTS `bibal` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `bibal`;
+
+
 -- Export de la structure de table bibal. auteur
 CREATE TABLE IF NOT EXISTS `auteur` (
   `idAuteur` int(11) NOT NULL AUTO_INCREMENT,
   `nomAuteur` varchar(255) DEFAULT NULL,
   `prenomAuteur` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`idAuteur`)
-) ENGINE=InnoDB AUTO_INCREMENT=530 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=106 DEFAULT CHARSET=latin1;
 
 -- Export de données de la table bibal.auteur : ~0 rows (environ)
 /*!40000 ALTER TABLE `auteur` DISABLE KEYS */;
@@ -27,10 +32,11 @@ CREATE TABLE IF NOT EXISTS `auteur` (
 CREATE TABLE IF NOT EXISTS `emprunt` (
   `idUsager` int(11) NOT NULL,
   `idExemplaire` int(11) NOT NULL,
-  `dateDebut` date DEFAULT NULL,
+  `dateDebut` date NOT NULL,
   `durée` int(11) DEFAULT NULL,
+  `dateRetourPrevue` date DEFAULT NULL,
   `dateRetourEffective` date DEFAULT NULL,
-  PRIMARY KEY (`idUsager`,`idExemplaire`),
+  PRIMARY KEY (`idUsager`,`idExemplaire`,`dateDebut`),
   KEY `FKEmprunt674792` (`idExemplaire`),
   KEY `FKEmprunt886677` (`idUsager`),
   CONSTRAINT `FKEmprunt674792` FOREIGN KEY (`idExemplaire`) REFERENCES `exemplaire` (`idExemplaire`),
@@ -50,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `exemplaire` (
   PRIMARY KEY (`idExemplaire`),
   KEY `FKExemplaire431975` (`ISBN`),
   CONSTRAINT `FKExemplaire431975` FOREIGN KEY (`ISBN`) REFERENCES `oeuvre` (`ISBN`)
-) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=latin1;
 
 -- Export de données de la table bibal.exemplaire : ~0 rows (environ)
 /*!40000 ALTER TABLE `exemplaire` DISABLE KEYS */;
@@ -67,8 +73,9 @@ CREATE TABLE IF NOT EXISTS `oeuvre` (
   `dateEdition` date DEFAULT NULL,
   `resume` text,
   `numero` int(11) DEFAULT NULL,
-  `periodicite` int(11) DEFAULT NULL,
+  `periodicite` varchar(50) DEFAULT NULL,
   `idAuteur` int(11) DEFAULT NULL,
+  `typeOeuvre` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`ISBN`),
   KEY `FKOeuvre185793` (`idAuteur`),
   CONSTRAINT `FKOeuvre185793` FOREIGN KEY (`idAuteur`) REFERENCES `auteur` (`idAuteur`)
@@ -105,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `usager` (
   `Mail` varchar(255) DEFAULT NULL,
   `Adresse` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`idUsager`)
-) ENGINE=InnoDB AUTO_INCREMENT=369 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=latin1;
 
 -- Export de données de la table bibal.usager : ~0 rows (environ)
 /*!40000 ALTER TABLE `usager` DISABLE KEYS */;
