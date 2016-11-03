@@ -92,7 +92,7 @@ public class AddEmpruntController implements Initializable {
         String ISBN = addOeuvreEmpruntComboBox.getSelectionModel().getSelectedItem().split(":")[0];
         exemplaires = exemplaireDB.selectAll(ISBN);
         for(Exemplaire exemplaire : exemplaires){
-            if(!exemplaire.getEtatExemplaire().equals("Emprunté")){
+            if(!exemplaire.getEtatExemplaire().equals("Emprunté") && !exemplaire.getEtatExemplaire().equals("Mauvais")){
                 addExamplaireEmpruntComboBox.getItems().add(exemplaire.getIdExemplaire());
             }
         }
@@ -125,11 +125,15 @@ public class AddEmpruntController implements Initializable {
             int idExemplaire = addExamplaireEmpruntComboBox.getSelectionModel().getSelectedItem();
             Emprunt emprunt = empruntDB.findByIds(idUsager, idExemplaire);
             if(emprunt == null || emprunt.getDateRetourPrevue().compareTo(new Date(Calendar.getInstance().getTime().getTime())) < 0){
+                Exemplaire exemplaire = exemplaireDB.findById(idExemplaire);
+
                 int duree = Integer.parseInt(dureeEmprunt.getText());
                 Date dateNow = new Date(Calendar.getInstance().getTime().getTime());
                 LocalDate localDate = dateNow.toLocalDate();
                 localDate = localDate.plusDays(duree);
                 empruntDB.insert(idUsager, idExemplaire, dateNow, duree, Date.valueOf(localDate), null);
+                exemplaireDB.update(exemplaire.getIdExemplaire(), "Emprunté", exemplaire.getOeuvre().getISBN());
+
                 Popup.popUpInfo("Emprunt crée", "L'emprunt a réussi.");
             }
             else{

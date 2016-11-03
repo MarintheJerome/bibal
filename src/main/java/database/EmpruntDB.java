@@ -5,6 +5,7 @@ import model.Exemplaire;
 import model.Usager;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  * Created by jerome on 26/10/2016.
@@ -68,5 +69,15 @@ public class EmpruntDB {
         preparedStatement.setInt(1, idUsager);
         preparedStatement.setInt(2, idExemplaire);
         preparedStatement.executeUpdate();
+    }
+
+    public ArrayList<Emprunt> selectAll() throws SQLException{
+        ArrayList<Emprunt> toReturn = new ArrayList<Emprunt>();
+        PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM emprunt WHERE dateRetourEffective IS NULL");
+        ResultSet rs = preparedStatement.executeQuery();
+        while(rs.next()) {
+            toReturn.add(this.findByIds(rs.getInt("idUsager"), rs.getInt("idExemplaire")));
+        }
+        return toReturn;
     }
 }

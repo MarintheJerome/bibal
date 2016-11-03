@@ -66,7 +66,7 @@ public class DeleteUsagerController implements Initializable {
     @FXML
     public void clickComboBox() throws SQLException {
         if(usagerComboBox.getItems().size() > 0){
-            int idUsager = Integer.parseInt(usagerComboBox.getSelectionModel().getSelectedItem().toString().split(":")[0]);
+            int idUsager = Integer.parseInt(usagerComboBox.getSelectionModel().getSelectedItem().split(":")[0]);
             Usager usager = usagerDB.findById(idUsager);
             prenomText.setText(usager.getPrenom());
             nameText.setText(usager.getNom());
@@ -78,7 +78,7 @@ public class DeleteUsagerController implements Initializable {
     @FXML
     public void delete() throws SQLException{
         if(usagerComboBox.getItems().size() > 0){
-            int idUsager = Integer.parseInt(usagerComboBox.getSelectionModel().getSelectedItem().toString().split(":")[0]);
+            int idUsager = Integer.parseInt(usagerComboBox.getSelectionModel().getSelectedItem().split(":")[0]);
             usagerDB.delete(idUsager);
             remplirComboBox();
             prenomText.setText("");

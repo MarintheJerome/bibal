@@ -6,6 +6,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -113,5 +114,12 @@ public class TestEmpruntDB {
 
         empruntDB.delete(idUsager, idExemplaire);
         assertNull(empruntDB.findByIds(idUsager, idExemplaire));
+    }
+
+    @Test
+    public void testSelectAll() throws SQLException{
+        empruntDB.insert(idUsager, idExemplaire, new Date(12000), 7, new Date(250000), new Date(250000));
+        ArrayList<Emprunt> emprunts = empruntDB.selectAll();
+        assertEquals(1, emprunts.size());
     }
 }
