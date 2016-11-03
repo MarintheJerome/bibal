@@ -81,7 +81,7 @@ public class AddEmpruntController implements Initializable {
         }
 
         for(Oeuvre oeuvre : oeuvres){
-            addOeuvreEmpruntComboBox.getItems().add(oeuvre.getISBN()+": "+oeuvre.getTitre());
+            addOeuvreEmpruntComboBox.getItems().add(oeuvre.getISBN()+": "+oeuvre.getNomOeuvre()+" - "+oeuvre.getTitre());
         }
         for(Usager usager : usagers){
             addUsagerEmpruntComboBox.getItems().add(usager.getIdUsager()+": "+usager.getNom()+" "+usager.getPrenom());
