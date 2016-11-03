@@ -168,7 +168,7 @@ public class UpdateOeuvreController  implements Initializable {
         odb.update(isbnOeuvre.getText(), nomOeuvre.getText(), titreOeuvre.getText(),
                 java.sql.Date.valueOf(dateOeuvre.getValue()), currentBook.getNbReservation(), d,
                 ResumeLivreText.getText(), auteur, numero , comboBoxMagazine.getValue());
-        Popup.popUpInfo("Modification", "Vous avez bien modifier l'oeuvre !");
+        Popup.popUpInfo("Modification", "Vous avez bien modifié l'oeuvre !");
     }
 
     @FXML

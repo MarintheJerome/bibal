@@ -37,13 +37,10 @@ public class UpdateEmpruntController implements Initializable {
     private OeuvreDB oeuvreDB;
 
     @FXML
-    private Button annuleDeleteEmprunt, deleteEmprunt;
-
-    @FXML
     private ComboBox<String> deleteEmpruntComboBox, etatExemplaire;
 
     @FXML
-    private TextField nomUtilisateur, prenomUtilisateur, titreOeuvre;
+    private TextField nomUtilisateur, prenomUtilisateur, titreOeuvre, nomOeuvre;
 
     @FXML
     private Label etatExemplaireLabel;
@@ -62,6 +59,7 @@ public class UpdateEmpruntController implements Initializable {
         nomUtilisateur.setText("");
         prenomUtilisateur.setText("");
         titreOeuvre.setText("");
+        nomOeuvre.setText("");
 
         deleteEmpruntComboBox.getItems().clear();
         etatExemplaireLabel.setVisible(false);
@@ -97,6 +95,7 @@ public class UpdateEmpruntController implements Initializable {
 
             Oeuvre oeuvre = oeuvreDB.findByISBN(emprunt.getExemplaire().getOeuvre().getISBN());
             titreOeuvre.setText(oeuvre.getTitre());
+            nomOeuvre.setText(oeuvre.getNomOeuvre());
 
             etatExemplaire.setValue(emprunt.getExemplaire().getEtatExemplaire());
         }

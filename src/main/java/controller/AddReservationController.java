@@ -103,8 +103,13 @@ public class AddReservationController implements Initializable{
             Oeuvre oeuvre = oeuvres.get(index);
             index = addReservationUsagerComboBox.getSelectionModel().getSelectedIndex();
             Usager usager = usagers.get(index);
-            reservationDB.insert(usager.getIdUsager(), oeuvre.getISBN(), new Date(Calendar.getInstance().getTime().getTime()), "En cours");
-            Popup.popUpInfo("Reservation réussie", "L'oeuvre a été reservée.");
+            if(reservationDB.findByIds(usager.getIdUsager(), oeuvre.getISBN()) == null){
+                reservationDB.insert(usager.getIdUsager(), oeuvre.getISBN(), new Date(Calendar.getInstance().getTime().getTime()), "En cours");
+                Popup.popUpInfo("Reservation réussie", "L'oeuvre a été reservée.");
+            }
+            else{
+                Popup.popUpError("Impossible de réserver", "L'usager a déjà reservé cette oeuvre.");
+            }
         }
         else{
             Popup.popUpError("Impossible de réserver", "Veuillez selectionner une oeuvre et un usager");

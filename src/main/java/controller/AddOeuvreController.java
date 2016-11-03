@@ -111,7 +111,7 @@ public class AddOeuvreController implements Initializable {
                         odb.insertLivre(isbnOeuvre.getText(), nomOeuvre.getText(), titreOeuvre.getText(),
                                 java.sql.Date.valueOf(dateOeuvre.getValue()), 0,
                                 java.sql.Date.valueOf(dateEdition.getValue()), ResumeLivreText.getText(), auteur);
-                        Popup.popUpInfo("Ajout", "Vous avez correctement ajouter un livre");
+                        Popup.popUpInfo("Ajout", "Vous avez correctement ajouté un livre");
                         refresh();
                     } else {
                         Popup.popUpError("Erreur", "Auteur pas mis.");
@@ -120,7 +120,7 @@ public class AddOeuvreController implements Initializable {
                 if(checkMagazine.isSelected()){
                     if(!NumeroMagazine.getText().equals("") && !comboBoxMagazine.getValue().equals("")){
                         odb.insertMagasine(isbnOeuvre.getText(), nomOeuvre.getText(), titreOeuvre.getText(),java.sql.Date.valueOf(dateOeuvre.getValue()),0, Integer.parseInt(NumeroMagazine.getText()), comboBoxMagazine.getValue());
-                        Popup.popUpInfo("Ajout", "Vous avez correctement ajouter un magazine");
+                        Popup.popUpInfo("Ajout", "Vous avez correctement ajouté un magazine");
                         refresh();
                     }else{
                         Popup.popUpError("Erreur", "Renseignement magazine non mis.");
