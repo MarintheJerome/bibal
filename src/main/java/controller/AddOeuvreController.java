@@ -97,36 +97,38 @@ public class AddOeuvreController implements Initializable {
     @FXML
     public void AddOeuvreButton() throws SQLException {
         if(!isbnOeuvre.getText().isEmpty() && !nomOeuvre.getText().isEmpty() && !titreOeuvre.getText().isEmpty()){
-            if(checkLivre.isSelected()) {
-                if (!nomAuteurOeuvre.getText().isEmpty() && !prenomAuteurOeuvre.getText().isEmpty()) {
-                    int auteur = adb.getIdFromAuteur(nomAuteurOeuvre.getText(), prenomAuteurOeuvre.getText());
-                    if (auteur == -1){
-                        adb.insert(nomAuteurOeuvre.getText(), prenomAuteurOeuvre.getText());
-                        auteur = adb.getIdFromAuteur(nomAuteurOeuvre.getText(), prenomAuteurOeuvre.getText());
+            if(odb.findByISBN(isbnOeuvre.getText()) == null){
+                if(!checkLivre.isSelected() && !checkMagazine.isSelected()) {
+                    Popup.popUpError("Erreur", "Pas de choix fait entre Livre et Magazine.");
+                }
+                if(checkLivre.isSelected()) {
+                    if (!nomAuteurOeuvre.getText().isEmpty() && !prenomAuteurOeuvre.getText().isEmpty()) {
+                        int auteur = adb.getIdFromAuteur(nomAuteurOeuvre.getText(), prenomAuteurOeuvre.getText());
+                        if (auteur == -1){
+                            adb.insert(nomAuteurOeuvre.getText(), prenomAuteurOeuvre.getText());
+                            auteur = adb.getIdFromAuteur(nomAuteurOeuvre.getText(), prenomAuteurOeuvre.getText());
+                        }
+                        odb.insertLivre(isbnOeuvre.getText(), nomOeuvre.getText(), titreOeuvre.getText(),
+                                java.sql.Date.valueOf(dateOeuvre.getValue()), 0,
+                                java.sql.Date.valueOf(dateEdition.getValue()), ResumeLivreText.getText(), auteur);
+                        Popup.popUpInfo("Ajout", "Vous avez correctement ajouter un livre");
+                        refresh();
+                    } else {
+                        Popup.popUpError("Erreur", "Auteur pas mis.");
                     }
-                    odb.insertLivre(isbnOeuvre.getText(), nomOeuvre.getText(), titreOeuvre.getText(),
-                            java.sql.Date.valueOf(dateOeuvre.getValue()), 0,
-                            java.sql.Date.valueOf(dateEdition.getValue()), ResumeLivreText.getText(), auteur);
-                    Popup.popUpInfo("Ajout", "Vous avez correctement ajouter un livre");
-                    refresh();
-                } else {
-                    Popup.popUpError("Erreur", "Auteur pas mis.");
                 }
-            }
-            if(checkMagazine.isSelected()){
-                if(!NumeroMagazine.getText().equals("") && !comboBoxMagazine.getValue().equals("")){
-                    odb.insertMagasine(isbnOeuvre.getText(), nomOeuvre.getText(), titreOeuvre.getText(),java.sql.Date.valueOf(dateOeuvre.getValue()),0, Integer.parseInt(NumeroMagazine.getText()), comboBoxMagazine.getValue());
-                    Popup.popUpInfo("Ajout", "Vous avez correctement ajouter un magazine");
-                    refresh();
-                }else{
-                    Popup.popUpError("Erreur", "Renseignement magazine non mis.");
+                if(checkMagazine.isSelected()){
+                    if(!NumeroMagazine.getText().equals("") && !comboBoxMagazine.getValue().equals("")){
+                        odb.insertMagasine(isbnOeuvre.getText(), nomOeuvre.getText(), titreOeuvre.getText(),java.sql.Date.valueOf(dateOeuvre.getValue()),0, Integer.parseInt(NumeroMagazine.getText()), comboBoxMagazine.getValue());
+                        Popup.popUpInfo("Ajout", "Vous avez correctement ajouter un magazine");
+                        refresh();
+                    }else{
+                        Popup.popUpError("Erreur", "Renseignement magazine non mis.");
+                    }
                 }
-            }
-            if(!checkLivre.isSelected() && !checkMagazine.isSelected()) {
-                Popup.popUpError("Erreur", "Pas de choix fait entre.");
             }
         }else{
-            Popup.popUpError("Erreur", "Un attribut n'est pas mis.");
+            Popup.popUpError("Erreur", "Un attribut vital n'est pas mis.");
         }
     }
 
@@ -138,5 +140,9 @@ public class AddOeuvreController implements Initializable {
         NumeroMagazine.setText("");
         prenomAuteurOeuvre.setText("");
         nomAuteurOeuvre.setText("");
+        dateEdition.setValue(null);
+        dateOeuvre.setValue(null);
+        checkLivre.setSelected(false);
+        checkMagazine.setSelected(false);
     }
 }

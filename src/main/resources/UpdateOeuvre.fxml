@@ -32,11 +32,10 @@
       <DatePicker fx:id="dateEdition" layoutX="399.0" layoutY="109.0" />
       <TextArea fx:id="ResumeLivreText" layoutX="360.0" layoutY="155.0" prefHeight="159.0" prefWidth="224.0" />
       <ComboBox fx:id="oeuvreComboBox" onAction="#clickComboBox" layoutX="97.0" layoutY="24.0" prefWidth="150.0" />
-      <Label layoutX="32.0" layoutY="28.0" text="Oeuvre" />
+      <Label layoutX="32.0" layoutY="28.0" text="Oeuvre :" />
       <Label layoutX="33.0" layoutY="285.0" text="Nombre d'exemplaires :" />
       <TextField fx:id="nombreExemplaireOeuvre" disable="true" editable="false" layoutX="173.0" layoutY="281.0" prefHeight="25.0" prefWidth="32.0" />
-      <Button fx:id="addExemplaireOeuvre" layoutX="35.0" layoutY="385.0" mnemonicParsing="false" text="Ajouter Exemplaire" />
-      <Button fx:id="deleteExemplaireOeuvre" layoutX="173.0" layoutY="385.0" mnemonicParsing="false" text="Archiver Exemplaire" />
+      <Button fx:id="addExemplaireOeuvre" onAction="#addExemplaire" layoutX="35.0" layoutY="385.0" mnemonicParsing="false" text="Ajouter Exemplaire" />
       <Label layoutX="38.0" layoutY="314.0" text="Nom auteur :" />
       <Label layoutX="38.0" layoutY="346.0" text="Prénom auteur :" />
       <TextField fx:id="nomAuteurOeuvre" layoutX="134.0" layoutY="310.0" />

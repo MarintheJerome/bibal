@@ -21,11 +21,9 @@ CREATE TABLE IF NOT EXISTS `auteur` (
   `nomAuteur` varchar(255) DEFAULT NULL,
   `prenomAuteur` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`idAuteur`)
-) ENGINE=InnoDB AUTO_INCREMENT=106 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Export de données de la table bibal.auteur : ~0 rows (environ)
-/*!40000 ALTER TABLE `auteur` DISABLE KEYS */;
-/*!40000 ALTER TABLE `auteur` ENABLE KEYS */;
+-- L'exportation de données n'était pas sélectionnée.
 
 
 -- Export de la structure de table bibal. emprunt
@@ -43,9 +41,7 @@ CREATE TABLE IF NOT EXISTS `emprunt` (
   CONSTRAINT `FKEmprunt886677` FOREIGN KEY (`idUsager`) REFERENCES `usager` (`idUsager`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Export de données de la table bibal.emprunt : ~0 rows (environ)
-/*!40000 ALTER TABLE `emprunt` DISABLE KEYS */;
-/*!40000 ALTER TABLE `emprunt` ENABLE KEYS */;
+-- L'exportation de données n'était pas sélectionnée.
 
 
 -- Export de la structure de table bibal. exemplaire
@@ -56,11 +52,9 @@ CREATE TABLE IF NOT EXISTS `exemplaire` (
   PRIMARY KEY (`idExemplaire`),
   KEY `FKExemplaire431975` (`ISBN`),
   CONSTRAINT `FKExemplaire431975` FOREIGN KEY (`ISBN`) REFERENCES `oeuvre` (`ISBN`)
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Export de données de la table bibal.exemplaire : ~0 rows (environ)
-/*!40000 ALTER TABLE `exemplaire` DISABLE KEYS */;
-/*!40000 ALTER TABLE `exemplaire` ENABLE KEYS */;
+-- L'exportation de données n'était pas sélectionnée.
 
 
 -- Export de la structure de table bibal. oeuvre
@@ -76,14 +70,13 @@ CREATE TABLE IF NOT EXISTS `oeuvre` (
   `periodicite` varchar(50) DEFAULT NULL,
   `idAuteur` int(11) DEFAULT NULL,
   `typeOeuvre` varchar(50) DEFAULT NULL,
+  `valable` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`ISBN`),
   KEY `FKOeuvre185793` (`idAuteur`),
   CONSTRAINT `FKOeuvre185793` FOREIGN KEY (`idAuteur`) REFERENCES `auteur` (`idAuteur`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Export de données de la table bibal.oeuvre : ~0 rows (environ)
-/*!40000 ALTER TABLE `oeuvre` DISABLE KEYS */;
-/*!40000 ALTER TABLE `oeuvre` ENABLE KEYS */;
+-- L'exportation de données n'était pas sélectionnée.
 
 
 -- Export de la structure de table bibal. reservation
@@ -99,9 +92,7 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   CONSTRAINT `FKReservatio905104` FOREIGN KEY (`idUsager`) REFERENCES `usager` (`idUsager`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Export de données de la table bibal.reservation : ~0 rows (environ)
-/*!40000 ALTER TABLE `reservation` DISABLE KEYS */;
-/*!40000 ALTER TABLE `reservation` ENABLE KEYS */;
+-- L'exportation de données n'était pas sélectionnée.
 
 
 -- Export de la structure de table bibal. usager
@@ -112,11 +103,9 @@ CREATE TABLE IF NOT EXISTS `usager` (
   `Mail` varchar(255) DEFAULT NULL,
   `Adresse` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`idUsager`)
-) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Export de données de la table bibal.usager : ~0 rows (environ)
-/*!40000 ALTER TABLE `usager` DISABLE KEYS */;
-/*!40000 ALTER TABLE `usager` ENABLE KEYS */;
+-- L'exportation de données n'était pas sélectionnée.
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

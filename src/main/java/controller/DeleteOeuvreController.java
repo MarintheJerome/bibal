@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
 /**
  * Created by Yhugo on 02/11/2016.
  */
-public class UpdateOeuvreController  implements Initializable {
+public class DeleteOeuvreController  implements Initializable {
 
     private OeuvreDB odb = new OeuvreDB();
     private ExemplaireDB edb = new ExemplaireDB();
@@ -30,19 +30,19 @@ public class UpdateOeuvreController  implements Initializable {
     private ArrayList<Oeuvre> oeuvres;
 
     @FXML
-    private TextField isbnOeuvre,nomOeuvre,titreOeuvre, NumeroMagazine, nombreExemplaireOeuvre, nomAuteurOeuvre, prenomAuteurOeuvre;
+    private TextField isbnOeuvre, nomOeuvre, titreOeuvre, NumeroMagazine, nombreExemplaireOeuvre, nomAuteurOeuvre, prenomAuteurOeuvre;
 
     @FXML
     private CheckBox checkLivre, checkMagazine;
 
     @FXML
-    private DatePicker dateOeuvre,dateEdition;
+    private DatePicker dateOeuvre, dateEdition;
 
     @FXML
-    private Button annuleAddOeuvreButton, updateOeuvreButton,addExemplaireOeuvre;
+    private Button annuleDeleteOeuvreButton, updateOeuvreButton;
 
     @FXML
-    private ComboBox<String> comboBoxMagazine,oeuvreComboBox;
+    private ComboBox<String> comboBoxMagazine, oeuvreComboBox;
 
     @FXML
     private TextArea ResumeLivreText;
@@ -53,32 +53,32 @@ public class UpdateOeuvreController  implements Initializable {
         checkLivre.setOnAction(checker());
         checkMagazine.setOnAction(checker());
         remplirComboBox();
-        comboBoxMagazine.getItems().addAll("Journalier","Hebdomadaire","Mensuel","Bimensuel","Trimestriel");
+        comboBoxMagazine.getItems().addAll("Journalier", "Hebdomadaire", "Mensuel", "Bimensuel", "Trimestriel");
     }
 
     private EventHandler<ActionEvent> checker() {
         return new EventHandler<ActionEvent>() {
 
             public void handle(ActionEvent event) {
-                if(checkLivre.isSelected()){
+                if (checkLivre.isSelected()) {
                     checkMagazine.setSelected(false);
                     ResumeLivreText.setDisable(false);
                     dateEdition.setDisable(false);
                     nomAuteurOeuvre.setDisable(false);
                     prenomAuteurOeuvre.setDisable(false);
                 }
-                if(!checkLivre.isSelected()){
+                if (!checkLivre.isSelected()) {
                     ResumeLivreText.setDisable(true);
                     dateEdition.setDisable(true);
                     nomAuteurOeuvre.setDisable(true);
                     prenomAuteurOeuvre.setDisable(true);
                 }
-                if(checkMagazine.isSelected()){
+                if (checkMagazine.isSelected()) {
                     checkLivre.setSelected(false);
                     comboBoxMagazine.setDisable(false);
                     NumeroMagazine.setDisable(false);
                 }
-                if(!checkMagazine.isSelected()){
+                if (!checkMagazine.isSelected()) {
                     comboBoxMagazine.setDisable(true);
                     NumeroMagazine.setDisable(true);
                 }
@@ -93,14 +93,14 @@ public class UpdateOeuvreController  implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        for(Oeuvre o : oeuvres){
-            oeuvreComboBox.getItems().add(o.getISBN()+": "+o.getNomOeuvre()+" - "+o.getTitre());
+        for (Oeuvre o : oeuvres) {
+            oeuvreComboBox.getItems().add(o.getISBN() + ": " + o.getNomOeuvre() + " - " + o.getTitre());
         }
     }
 
     @FXML
     public void clickComboBox() throws SQLException {
-        if(oeuvreComboBox.getItems().size() > 0){
+        if (oeuvreComboBox.getItems().size() > 0) {
             String isbn = oeuvreComboBox.getSelectionModel().getSelectedItem().toString().split(":")[0];
             Oeuvre book = odb.findByISBN(isbn);
             currentBook = book;
@@ -108,7 +108,7 @@ public class UpdateOeuvreController  implements Initializable {
             isbnOeuvre.setDisable(true);
             nomOeuvre.setText(book.getNomOeuvre());
             titreOeuvre.setText(book.getTitre());
-            if(book.getType().equals("Livre")){
+            if (book.getType().equals("Livre")) {
                 checkMagazine.setDisable(true);
                 ResumeLivreText.setText(book.getResume());
                 nomAuteurOeuvre.setText(book.getAuteur().getNomAuteur());
@@ -124,9 +124,9 @@ public class UpdateOeuvreController  implements Initializable {
                 prenomAuteurOeuvre.setDisable(false);
                 nomAuteurOeuvre.setDisable(false);
             }
-            if(book.getType().equals("Magazine")){
+            if (book.getType().equals("Magazine")) {
                 checkLivre.setDisable(true);
-                NumeroMagazine.setText(""+book.getNumero());
+                NumeroMagazine.setText("" + book.getNumero());
                 comboBoxMagazine.setValue(book.getPeriodicite());
                 checkMagazine.setSelected(true);
                 dateEdition.setDisable(true);
@@ -140,42 +140,33 @@ public class UpdateOeuvreController  implements Initializable {
                 comboBoxMagazine.setDisable(false);
                 NumeroMagazine.setDisable(false);
             }
-            nombreExemplaireOeuvre.setText(""+(edb.selectAll(book.getISBN()).size()));
+            nombreExemplaireOeuvre.setText("" + (edb.selectAll(book.getISBN()).size()));
             dateOeuvre.setValue(book.getDateParution().toLocalDate());
         }
     }
 
     @FXML
-    public void annuleUpdateOeuvreButton() throws SQLException {
+    public void annuleDeleteOeuvreButton() throws SQLException {
         AnchorPane parent = (AnchorPane) isbnOeuvre.getParent().getParent();
         parent.getChildren().clear();
     }
 
     @FXML
-    public void UpdateOeuvreButton() throws SQLException {
-        Integer auteur = null;
-        if(currentBook.getType().equals("Livre")){
-            auteur = adb.getIdFromAuteur(nomAuteurOeuvre.getText(), prenomAuteurOeuvre.getText());
-            if (auteur == -1){
-                adb.insert(nomAuteurOeuvre.getText(), prenomAuteurOeuvre.getText());
-                auteur = adb.getIdFromAuteur(nomAuteurOeuvre.getText(), prenomAuteurOeuvre.getText());
-            }
-        }
-        Integer numero = null;
-        if(!(NumeroMagazine.getText() == null)) numero = Integer.parseInt(NumeroMagazine.getText());
-        java.sql.Date d = null;
-        if(!(dateEdition.getValue() == null)) d = java.sql.Date.valueOf(dateEdition.getValue());
-        odb.update(isbnOeuvre.getText(), nomOeuvre.getText(), titreOeuvre.getText(),
-                java.sql.Date.valueOf(dateOeuvre.getValue()), currentBook.getNbReservation(), d,
-                ResumeLivreText.getText(), auteur, numero , comboBoxMagazine.getValue());
-        Popup.popUpInfo("Modification", "Vous avez bien modifier l'oeuvre !");
-    }
-
-    @FXML
-    public void addExemplaire() throws SQLException {
-        edb.insert("Bon", currentBook.getISBN());
-        int nbexemplaire = Integer.parseInt(nombreExemplaireOeuvre.getText());
-        nombreExemplaireOeuvre.setText(""+(nbexemplaire+1));
+    public void deleteOeuvreButton() throws SQLException {
+        odb.archive(currentBook.getISBN());
+        Popup.popUpInfo("Suppression","Suppression correctement effectuée.");
+        remplirComboBox();
+        isbnOeuvre.setText("");
+        nomOeuvre.setText("");
+        titreOeuvre.setText("");
+        ResumeLivreText.setText("");
+        NumeroMagazine.setText("");
+        prenomAuteurOeuvre.setText("");
+        nomAuteurOeuvre.setText("");
+        dateEdition.setValue(null);
+        dateOeuvre.setValue(null);
+        checkLivre.setSelected(false);
+        checkMagazine.setSelected(false);
     }
 
 }

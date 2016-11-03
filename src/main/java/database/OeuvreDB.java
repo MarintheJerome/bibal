@@ -208,10 +208,16 @@ public class OeuvreDB {
         preparedStatement.setString(1, ISBN);
         preparedStatement.executeUpdate();
     }
+    public void archive(String ISBN) throws SQLException {
+        PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE Oeuvre SET  valable=1 WHERE ISBN = ?");
+        preparedStatement.setString(1, ISBN);
+        preparedStatement.executeUpdate();
+    }
+
 
     public ArrayList<Oeuvre> selectAll() throws SQLException {
         ArrayList<Oeuvre> toReturn = new ArrayList<Oeuvre>();
-        PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM oeuvre");
+        PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM oeuvre  WHERE valable=0");
         ResultSet rs = preparedStatement.executeQuery();
         while(rs.next()) {
             toReturn.add(this.findByISBN(rs.getString("ISBN")));
