@@ -111,7 +111,7 @@ public class AddEmpruntController implements Initializable {
             int idUsager = Integer.parseInt(addUsagerEmpruntComboBox.getSelectionModel().getSelectedItem().split(":")[0]);
             String ISBN = addOeuvreEmpruntComboBox.getSelectionModel().getSelectedItem().split(":")[0];
             reservationDB.insert(idUsager, ISBN, new Date(Calendar.getInstance().getTime().getTime()), "En cours");
-            Popup.popUpError("Reservation créée", "La réservation a réussi.");
+            Popup.popUpInfo("Reservation créée", "La réservation a réussi.");
         }else{
             Popup.popUpError("Impossible de faire la réservation", "Veuillez selectionner un usager et une oeuvre.");
         }
@@ -124,16 +124,16 @@ public class AddEmpruntController implements Initializable {
             int idUsager =  Integer.parseInt(addUsagerEmpruntComboBox.getSelectionModel().getSelectedItem().split(":")[0]);
             int idExemplaire = addExamplaireEmpruntComboBox.getSelectionModel().getSelectedItem();
             Emprunt emprunt = empruntDB.findByIds(idUsager, idExemplaire);
-            if(emprunt == null || emprunt.getDateRetourEffective().compareTo(new Date(Calendar.getInstance().getTime().getTime())) < 0){
+            if(emprunt == null || emprunt.getDateRetourPrevue().compareTo(new Date(Calendar.getInstance().getTime().getTime())) < 0){
                 int duree = Integer.parseInt(dureeEmprunt.getText());
                 Date dateNow = new Date(Calendar.getInstance().getTime().getTime());
                 LocalDate localDate = dateNow.toLocalDate();
                 localDate = localDate.plusDays(duree);
-                empruntDB.insert(idUsager, idExemplaire, dateNow, duree, Date.valueOf(localDate));
+                empruntDB.insert(idUsager, idExemplaire, dateNow, duree, Date.valueOf(localDate), null);
                 Popup.popUpInfo("Emprunt crée", "L'emprunt a réussi.");
             }
             else{
-                Popup.popUpError("Impossible de réaliser l'emprunt.", "Exemplaire déjà reservé par l'utilisateur.");
+                Popup.popUpError("Impossible de réaliser l'emprunt", "Exemplaire déjà reservé par l'utilisateur.");
             }
         }
         else{

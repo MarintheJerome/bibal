@@ -8,15 +8,17 @@ import java.util.Date;
 public class Emprunt {
     private Date dateDebut;
     private int duree;
+    private Date dateRetourPrevue;
     private Date dateRetourEffective;
     private Exemplaire exemplaire;
     private Usager usager;
 
     public Emprunt(){}
 
-    public Emprunt(Date dateDebut, int duree, Date dateRetourEffective, Exemplaire exemplaire, Usager usager) {
+    public Emprunt(Date dateDebut, int duree, Date dateRetourPrevue, Date dateRetourEffective, Exemplaire exemplaire, Usager usager) {
         this.dateDebut = dateDebut;
         this.duree = duree;
+        this.dateRetourPrevue = dateRetourPrevue;
         this.dateRetourEffective = dateRetourEffective;
         this.exemplaire = exemplaire;
         this.usager = usager;
@@ -36,6 +38,14 @@ public class Emprunt {
 
     public void setDuree(int duree) {
         this.duree = duree;
+    }
+
+    public Date getDateRetourPrevue() {
+        return dateRetourPrevue;
+    }
+
+    public void setDateRetourPrevue(Date dateRetourPrevue) {
+        this.dateRetourPrevue = dateRetourPrevue;
     }
 
     public Date getDateRetourEffective() {

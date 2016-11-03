@@ -78,7 +78,7 @@ public class TestEmpruntDB {
 
     @Test
     public void testInsert() throws SQLException{
-        empruntDB.insert(idUsager, idExemplaire, new Date(12000), 7, new Date(250000));
+        empruntDB.insert(idUsager, idExemplaire, new Date(12000), 7, new Date(250000), new Date(250000));
 
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Emprunt WHERE idUsager = ? AND idExemplaire = ?");
         preparedStatement.setInt(1, idUsager);
@@ -91,7 +91,7 @@ public class TestEmpruntDB {
 
     @Test
     public void testFindByIds() throws SQLException{
-        empruntDB.insert(idUsager, idExemplaire, new Date(12000), 7, new Date(250000));
+        empruntDB.insert(idUsager, idExemplaire, new Date(12000), 7, new Date(250000), new Date(250000));
 
         Emprunt emprunt = empruntDB.findByIds(idUsager, idExemplaire);
         assertNotNull(emprunt);
@@ -99,9 +99,9 @@ public class TestEmpruntDB {
 
     @Test
     public void update() throws SQLException{
-        empruntDB.insert(idUsager, idExemplaire, new Date(12000), 7, new Date(250000));
+        empruntDB.insert(idUsager, idExemplaire, new Date(12000), 7, new Date(250000), new Date(250000));
 
-        empruntDB.update(idUsager, idExemplaire, new Date(12000), 15, new Date(250000));
+        empruntDB.update(idUsager, idExemplaire, new Date(12000), 15, new Date(250000), new Date(250000));
         Emprunt emprunt = empruntDB.findByIds(idUsager, idExemplaire);
         assertNotNull(emprunt);
         assertEquals(15, emprunt.getDuree());
@@ -109,7 +109,7 @@ public class TestEmpruntDB {
 
     @Test
     public void testDelete() throws SQLException{
-        empruntDB.insert(idUsager, idExemplaire, new Date(12000), 7, new Date(250000));
+        empruntDB.insert(idUsager, idExemplaire, new Date(12000), 7, new Date(250000), new Date(250000));
 
         empruntDB.delete(idUsager, idExemplaire);
         assertNull(empruntDB.findByIds(idUsager, idExemplaire));

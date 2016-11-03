@@ -28,35 +28,38 @@ public class EmpruntDB {
         if(rs.next()) {
             Date dateDebut = rs.getDate("dateDebut");
             int duree = rs.getInt("durée");
+            Date dateRetourPrevue = rs.getDate("dateRetourPrevue");
             Date dateRetourEffective = rs.getDate("dateRetourEffective");
             Exemplaire exemplaire = exemplaireDB.findById(idExemplaire);
             Usager usager =usagerDB.findById(idUsager);
 
-            return new Emprunt(dateDebut, duree, dateRetourEffective, exemplaire, usager);
+            return new Emprunt(dateDebut, duree, dateRetourPrevue, dateRetourEffective, exemplaire, usager);
         }else{
             return null;
         }
     }
 
-    public void insert(int idUsager, int idExemplaire, Date dateDebut, int duree, Date dateRetourEffective) throws SQLException{
-        PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO Emprunt(idUsager, idExemplaire, dateDebut, durée, dateRetourEffective) " +
-                "VALUES(?, ?, ?, ?, ?)");
+    public void insert(int idUsager, int idExemplaire, Date dateDebut, int duree, Date dateRetourPrevue, Date dateRetourEffective) throws SQLException{
+        PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO Emprunt(idUsager, idExemplaire, dateDebut, durée, dateRetourPrevue, dateRetourEffective) " +
+                "VALUES(?, ?, ?, ?, ?, ?)");
         preparedStatement.setInt(1, idUsager);
         preparedStatement.setInt(2, idExemplaire);
         preparedStatement.setDate(3, dateDebut);
         preparedStatement.setInt(4, duree);
-        preparedStatement.setDate(5, dateRetourEffective);
+        preparedStatement.setDate(5, dateRetourPrevue);
+        preparedStatement.setDate(6, dateRetourEffective);
         preparedStatement.executeUpdate();
     }
 
-    public void update(int idUsager, int idExemplaire, Date dateDebut, int duree, Date dateRetourEffective) throws SQLException {
-        PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE emprunt SET dateDebut = ?, durée = ?, dateRetourEffective = ? " +
+    public void update(int idUsager, int idExemplaire, Date dateDebut, int duree, Date dateRetourPrevue, Date dateRetourEffective) throws SQLException {
+        PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE emprunt SET dateDebut = ?, durée = ?, dateRetourPrevue = ?, dateRetourEffective = ? " +
                 "WHERE idUsager = ? AND idExemplaire = ?");
         preparedStatement.setDate(1, dateDebut);
         preparedStatement.setInt(2, duree);
-        preparedStatement.setDate(3, dateRetourEffective);
-        preparedStatement.setInt(4, idUsager);
-        preparedStatement.setInt(5, idExemplaire);
+        preparedStatement.setDate(3, dateRetourPrevue);
+        preparedStatement.setDate(4, dateRetourEffective);
+        preparedStatement.setInt(5, idUsager);
+        preparedStatement.setInt(6, idExemplaire);
         preparedStatement.executeUpdate();
     }
 
