@@ -3,6 +3,7 @@ package database;
 import model.*;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  * Created by jerome on 26/10/2016.
@@ -60,5 +61,15 @@ public class ReservationDB {
         preparedStatement.setInt(1, idUsager);
         preparedStatement.setString(2, ISBN);
         preparedStatement.executeUpdate();
+    }
+
+    public ArrayList<Reservation> selectAll() throws SQLException {
+        ArrayList<Reservation> toReturn = new ArrayList<Reservation>();
+        PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM Reservation");
+        ResultSet rs = preparedStatement.executeQuery();
+        while(rs.next()) {
+            toReturn.add(this.findByIds(rs.getInt("idUsager"), rs.getString("ISBN")));
+        }
+        return toReturn;
     }
 }
