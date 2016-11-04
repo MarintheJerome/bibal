@@ -3,6 +3,7 @@ package controller;
 /**
  * Created by jerome on 02/11/2016.
  */
+import common.Popup;
 import database.UsagerDB;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -76,8 +77,8 @@ public class DeleteUsagerController implements Initializable {
     }
 
     @FXML
-    public void delete() throws SQLException{
-        if(usagerComboBox.getItems().size() > 0){
+    public void deleteUsager() throws SQLException{
+        if(usagerComboBox.getItems().size() > 0 && usagerComboBox.getSelectionModel().getSelectedItem() != null){
             int idUsager = Integer.parseInt(usagerComboBox.getSelectionModel().getSelectedItem().split(":")[0]);
             usagerDB.delete(idUsager);
             remplirComboBox();
@@ -86,6 +87,8 @@ public class DeleteUsagerController implements Initializable {
             adresseText.setText("");
             mailText.setText("");
             usagerComboBox.setValue(null);
+        }else{
+            Popup.popUpError("Erreur", "Il faut selectionner un usager !");
         }
     }
 

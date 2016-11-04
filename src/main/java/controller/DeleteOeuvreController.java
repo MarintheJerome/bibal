@@ -146,27 +146,31 @@ public class DeleteOeuvreController  implements Initializable {
     }
 
     @FXML
-    public void annuleDeleteOeuvreButton() throws SQLException {
+    public void annuler() throws SQLException {
         AnchorPane parent = (AnchorPane) isbnOeuvre.getParent().getParent();
         parent.getChildren().clear();
     }
 
     @FXML
-    public void deleteOeuvreButton() throws SQLException {
-        odb.archive(currentBook.getISBN());
-        Popup.popUpInfo("Suppression","Suppression correctement effectuée.");
-        remplirComboBox();
-        isbnOeuvre.setText("");
-        nomOeuvre.setText("");
-        titreOeuvre.setText("");
-        ResumeLivreText.setText("");
-        NumeroMagazine.setText("");
-        prenomAuteurOeuvre.setText("");
-        nomAuteurOeuvre.setText("");
-        dateEdition.setValue(null);
-        dateOeuvre.setValue(null);
-        checkLivre.setSelected(false);
-        checkMagazine.setSelected(false);
+    public void archiveOeuvre() throws SQLException {
+        if(currentBook != null){
+            odb.archive(currentBook.getISBN());
+            Popup.popUpInfo("Suppression","Suppression correctement effectuée.");
+            remplirComboBox();
+            isbnOeuvre.setText("");
+            nomOeuvre.setText("");
+            titreOeuvre.setText("");
+            ResumeLivreText.setText("");
+            NumeroMagazine.setText("");
+            prenomAuteurOeuvre.setText("");
+            nomAuteurOeuvre.setText("");
+            dateEdition.setValue(null);
+            dateOeuvre.setValue(null);
+            checkLivre.setSelected(false);
+            checkMagazine.setSelected(false);
+        }else{
+            Popup.popUpError("Erreur", "Il faut selectionner une oeuvre !");
+        }
     }
 
 }

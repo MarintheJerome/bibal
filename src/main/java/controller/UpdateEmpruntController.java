@@ -102,21 +102,25 @@ public class UpdateEmpruntController implements Initializable {
     }
 
     @FXML
-    public void finEmprunt() throws SQLException {
-        if(!etatExemplaire.getSelectionModel().getSelectedItem().equals("Emprunté")){
-            int index = deleteEmpruntComboBox.getSelectionModel().getSelectedIndex();
-            Emprunt emprunt = emprunts.get(index);
-            Exemplaire exemplaire = emprunt.getExemplaire();
+    public void updateEmprunt() throws SQLException {
+        if(deleteEmpruntComboBox.getSelectionModel().getSelectedItem() != null){
+            if(!etatExemplaire.getSelectionModel().getSelectedItem().equals("Emprunté")){
+                int index = deleteEmpruntComboBox.getSelectionModel().getSelectedIndex();
+                Emprunt emprunt = emprunts.get(index);
+                Exemplaire exemplaire = emprunt.getExemplaire();
 
-            empruntDB.update(emprunt.getUsager().getIdUsager(), exemplaire.getIdExemplaire(), emprunt.getDateDebut(), emprunt.getDuree(), emprunt.getDateRetourPrevue(), new java.sql.Date(Calendar.getInstance().getTimeInMillis()));
+                empruntDB.update(emprunt.getUsager().getIdUsager(), exemplaire.getIdExemplaire(), emprunt.getDateDebut(), emprunt.getDuree(), emprunt.getDateRetourPrevue(), new java.sql.Date(Calendar.getInstance().getTimeInMillis()));
 
-            exemplaireDB.update(exemplaire.getIdExemplaire(), etatExemplaire.getSelectionModel().getSelectedItem(), exemplaire.getOeuvre().getISBN());
+                exemplaireDB.update(exemplaire.getIdExemplaire(), etatExemplaire.getSelectionModel().getSelectedItem(), exemplaire.getOeuvre().getISBN());
 
-            Popup.popUpInfo("Emprunt terminé", "L'exemplaire a été rendu, l'emprunt est terminé.");
-            remplirComposants();
-        }
-        else{
-            Popup.popUpError("Impossible de terminé l'emprunt", "Veuillez changer l'état de l'exemplaire");
+                Popup.popUpInfo("Emprunt terminé", "L'exemplaire a été rendu, l'emprunt est terminé.");
+                remplirComposants();
+            }
+            else{
+                Popup.popUpError("Impossible de terminé l'emprunt", "Veuillez changer l'état de l'exemplaire");
+            }
+        }else{
+            Popup.popUpError("Erreur", "Veuillez selectionner un emprunt.");
         }
     }
 

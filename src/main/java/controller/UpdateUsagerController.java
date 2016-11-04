@@ -70,7 +70,7 @@ public class UpdateUsagerController implements Initializable {
     }
 
     @FXML
-    public void update() throws SQLException{
+    public void updateUsager() throws SQLException{
         if(verifValeurs()){
             int idUsager = Integer.parseInt(usagerComboBox.getSelectionModel().getSelectedItem().toString().split(":")[0]);
             usagerDB.update(idUsager, nameText.getText(), prenomText.getText(), mailText.getText(), adresseText.getText());

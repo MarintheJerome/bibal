@@ -208,6 +208,7 @@ public class OeuvreDB {
         preparedStatement.setString(1, ISBN);
         preparedStatement.executeUpdate();
     }
+
     public void archive(String ISBN) throws SQLException {
         PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE Oeuvre SET  valable=1 WHERE ISBN = ?");
         preparedStatement.setString(1, ISBN);

@@ -108,7 +108,7 @@ public class AddEmpruntController implements Initializable {
     }
 
     @FXML
-    public void reservation() throws SQLException {
+    public void addReservation() throws SQLException {
         if(addUsagerEmpruntComboBox.getSelectionModel().getSelectedItem() != null && addOeuvreEmpruntComboBox.getSelectionModel().getSelectedItem() != null){
             int idUsager = Integer.parseInt(addUsagerEmpruntComboBox.getSelectionModel().getSelectedItem().split(":")[0]);
             String ISBN = addOeuvreEmpruntComboBox.getSelectionModel().getSelectedItem().split(":")[0];

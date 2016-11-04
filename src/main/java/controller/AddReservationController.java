@@ -97,7 +97,7 @@ public class AddReservationController implements Initializable{
     }
 
     @FXML
-    public void ajouterReservation() throws SQLException {
+    public void addReservation() throws SQLException {
         if(addReservationOeuvreComboBox.getSelectionModel().getSelectedItem() != null && addReservationUsagerComboBox.getSelectionModel().getSelectedItem() != null){
             int index = addReservationOeuvreComboBox.getSelectionModel().getSelectedIndex();
             Oeuvre oeuvre = oeuvres.get(index);

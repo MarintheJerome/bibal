@@ -21,8 +21,8 @@
       <CheckBox fx:id="checkLivre" layoutX="47.0" layoutY="245.0" mnemonicParsing="false" text="Livre" />
       <DatePicker fx:id="dateOeuvre" layoutX="97.0" layoutY="192.0" />
       <CheckBox fx:id="checkMagazine" layoutX="172.0" layoutY="245.0" mnemonicParsing="false" text="Magazine" />
-      <Button fx:id="annuleAddOeuvreButton" onAction="#annuleUpdateOeuvreButton" layoutX="352.0" layoutY="333.0" mnemonicParsing="false" text="Annuler" />
-      <Button fx:id="updateOeuvreButton" onAction="#UpdateOeuvreButton" layoutX="500.0" layoutY="333.0" mnemonicParsing="false" text="Modifier" />
+      <Button fx:id="annuleAddOeuvreButton" onAction="#annuler" layoutX="352.0" layoutY="333.0" mnemonicParsing="false" text="Annuler" />
+      <Button fx:id="updateOeuvreButton" onAction="#updateOeuvre" layoutX="500.0" layoutY="333.0" mnemonicParsing="false" text="Modifier" />
       <Label fx:id="numeroMagazine" layoutX="300.0" layoutY="28.0" text="Numéro :" />
       <Label fx:id="periodeMagazine" layoutX="300.0" layoutY="73.0" text="Période :" />
       <Label fx:id="dateLivreEdition" layoutX="300.0" layoutY="113.0" text="Date d'édition :" />

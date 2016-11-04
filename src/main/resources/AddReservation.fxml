@@ -8,7 +8,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="235.0" prefWidth="408.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddReservationController">
    <children>
       <Button fx:id="annulerAddReservation" onAction="#annuler" layoutX="131.0" layoutY="175.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Annuler" />
-      <Button fx:id="addReservation" onAction="#ajouterReservation" layoutX="238.0" layoutY="175.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Ajouter" />
+      <Button fx:id="addReservation" onAction="#addReservation" layoutX="238.0" layoutY="175.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Ajouter" />
       <Label layoutX="33.0" layoutY="48.0" text="Oeuvre :" />
       <Label layoutX="33.0" layoutY="109.0" text="Usager :" />
       <ComboBox fx:id="addReservationOeuvreComboBox" onAction="#selectOeuvre" layoutX="100.0" layoutY="44.0" prefHeight="25.0" prefWidth="204.0" />

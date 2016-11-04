@@ -88,14 +88,14 @@ public class AddOeuvreController implements Initializable {
     }
 
     @FXML
-    public void annuleAddOeuvreButton() throws SQLException {
+    public void annuler() throws SQLException {
         AnchorPane parent = (AnchorPane) isbnOeuvre.getParent().getParent();
         parent.getChildren().clear();
     }
 
 
     @FXML
-    public void AddOeuvreButton() throws SQLException {
+    public void addOeuvre() throws SQLException {
         if(!isbnOeuvre.getText().isEmpty() && !nomOeuvre.getText().isEmpty() && !titreOeuvre.getText().isEmpty()){
             if(odb.findByISBN(isbnOeuvre.getText()) == null){
                 if(!checkLivre.isSelected() && !checkMagazine.isSelected()) {

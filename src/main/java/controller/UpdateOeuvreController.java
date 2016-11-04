@@ -146,29 +146,33 @@ public class UpdateOeuvreController  implements Initializable {
     }
 
     @FXML
-    public void annuleUpdateOeuvreButton() throws SQLException {
+    public void annuler() throws SQLException {
         AnchorPane parent = (AnchorPane) isbnOeuvre.getParent().getParent();
         parent.getChildren().clear();
     }
 
     @FXML
-    public void UpdateOeuvreButton() throws SQLException {
+    public void updateOeuvre() throws SQLException {
         Integer auteur = null;
-        if(currentBook.getType().equals("Livre")){
-            auteur = adb.getIdFromAuteur(nomAuteurOeuvre.getText(), prenomAuteurOeuvre.getText());
-            if (auteur == -1){
-                adb.insert(nomAuteurOeuvre.getText(), prenomAuteurOeuvre.getText());
+        if(currentBook != null){
+            if(currentBook.getType().equals("Livre")){
                 auteur = adb.getIdFromAuteur(nomAuteurOeuvre.getText(), prenomAuteurOeuvre.getText());
+                if (auteur == -1){
+                    adb.insert(nomAuteurOeuvre.getText(), prenomAuteurOeuvre.getText());
+                    auteur = adb.getIdFromAuteur(nomAuteurOeuvre.getText(), prenomAuteurOeuvre.getText());
+                }
             }
+            Integer numero = null;
+            if(!(NumeroMagazine.getText() == null)) numero = Integer.parseInt(NumeroMagazine.getText());
+            java.sql.Date d = null;
+            if(!(dateEdition.getValue() == null)) d = java.sql.Date.valueOf(dateEdition.getValue());
+            odb.update(isbnOeuvre.getText(), nomOeuvre.getText(), titreOeuvre.getText(),
+                    java.sql.Date.valueOf(dateOeuvre.getValue()), currentBook.getNbReservation(), d,
+                    ResumeLivreText.getText(), auteur, numero , comboBoxMagazine.getValue());
+            Popup.popUpInfo("Modification", "Vous avez bien modifié l'oeuvre !");
+        }else{
+            Popup.popUpError("Erreur", "Il faut selectionner une oeuvre !");
         }
-        Integer numero = null;
-        if(!(NumeroMagazine.getText() == null)) numero = Integer.parseInt(NumeroMagazine.getText());
-        java.sql.Date d = null;
-        if(!(dateEdition.getValue() == null)) d = java.sql.Date.valueOf(dateEdition.getValue());
-        odb.update(isbnOeuvre.getText(), nomOeuvre.getText(), titreOeuvre.getText(),
-                java.sql.Date.valueOf(dateOeuvre.getValue()), currentBook.getNbReservation(), d,
-                ResumeLivreText.getText(), auteur, numero , comboBoxMagazine.getValue());
-        Popup.popUpInfo("Modification", "Vous avez bien modifié l'oeuvre !");
     }
 
     @FXML

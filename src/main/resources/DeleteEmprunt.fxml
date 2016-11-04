@@ -9,7 +9,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="243.0" prefWidth="452.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UpdateEmpruntController">
    <children>
       <Button fx:id="annuleDeleteEmprunt" layoutX="136.0" layoutY="200.0" mnemonicParsing="false" onAction="#annuler" text="Annuler" />
-      <Button fx:id="deleteEmprunt" layoutX="213.0" layoutY="200.0" mnemonicParsing="false" onAction="#finEmprunt" text="Marquer Rendu" />
+      <Button fx:id="deleteEmprunt" layoutX="213.0" layoutY="200.0" mnemonicParsing="false" onAction="#updateEmprunt" text="Marquer Rendu" />
       <Label layoutX="14.0" layoutY="89.0" text="Nom : " />
       <ComboBox fx:id="deleteEmpruntComboBox" layoutX="118.0" layoutY="34.0" onAction="#selectEmprunt" prefHeight="25.0" prefWidth="210.0" />
       <Label layoutX="14.0" layoutY="118.0" text="Prénom : " />
