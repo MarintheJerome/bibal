@@ -19,7 +19,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class DeleteUsagerController implements Initializable {
+public class ArchiveUsagerController implements Initializable {
 
     private UsagerDB usagerDB;
 
