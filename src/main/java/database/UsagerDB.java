@@ -71,9 +71,15 @@ public class UsagerDB {
         preparedStatement.executeUpdate();
     }
 
+    public void archive(int idUsager) throws SQLException {
+        PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE Usager SET  archive=1 WHERE idUsager = ?");
+        preparedStatement.setInt(1, idUsager);
+        preparedStatement.executeUpdate();
+    }
+
     public ArrayList<Usager> selectAll() throws SQLException{
         ArrayList<Usager> toReturn = new ArrayList<Usager>();
-        PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM usager");
+        PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM usager WHERE archive=0");
         ResultSet rs = preparedStatement.executeQuery();
         while(rs.next()) {
             toReturn.add(this.findById(rs.getInt("idUsager")));

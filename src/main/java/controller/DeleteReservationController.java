@@ -101,10 +101,14 @@ public class DeleteReservationController implements Initializable {
 
     @FXML
     public void deleteReservation() throws SQLException {
-        int index = deleteReservationComboBox.getSelectionModel().getSelectedIndex();
-        Reservation reservation = reservations.get(index);
-        reservationDB.delete(reservation.getUsager().getIdUsager(), reservation.getOeuvre().getISBN());
-        Popup.popUpInfo("Reservation supprimée", "La reservation a été correctement supprimée");
-        remplirComposants();
+        if(deleteReservationComboBox.getSelectionModel().getSelectedItem() != null) {
+            int index = deleteReservationComboBox.getSelectionModel().getSelectedIndex();
+            Reservation reservation = reservations.get(index);
+            reservationDB.delete(reservation.getUsager().getIdUsager(), reservation.getOeuvre().getISBN());
+            Popup.popUpInfo("Reservation supprimée", "La reservation a été correctement supprimée");
+            remplirComposants();
+        }else{
+            Popup.popUpError("Erreurt", "Veuillez selectionner une réservation.");
+        }
     }
 }

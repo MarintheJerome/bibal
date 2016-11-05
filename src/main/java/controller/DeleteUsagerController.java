@@ -80,13 +80,14 @@ public class DeleteUsagerController implements Initializable {
     public void deleteUsager() throws SQLException{
         if(usagerComboBox.getItems().size() > 0 && usagerComboBox.getSelectionModel().getSelectedItem() != null){
             int idUsager = Integer.parseInt(usagerComboBox.getSelectionModel().getSelectedItem().split(":")[0]);
-            usagerDB.delete(idUsager);
+            usagerDB.archive(idUsager);
             remplirComboBox();
             prenomText.setText("");
             nameText.setText("");
             adresseText.setText("");
             mailText.setText("");
             usagerComboBox.setValue(null);
+            Popup.popUpInfo("Archive réussie", "L'usager a été correctement archivé");
         }else{
             Popup.popUpError("Erreur", "Il faut selectionner un usager !");
         }
