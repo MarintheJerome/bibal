@@ -8,6 +8,8 @@ import java.sql.*;
 public class Connexion {
     private final static String USER = "root";
     private final static String PASSWORD = "root";
+    private final static String NOMBASE = "Bibal";
+    private final static String PORT = "3306";
 
     /**
      * Instance de la classe
@@ -19,7 +21,7 @@ public class Connexion {
     private Connexion(){
         try {
             Class.forName("org.mariadb.jdbc.Driver");
-            this.connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/Bibal", USER, PASSWORD);
+            this.connection = DriverManager.getConnection("jdbc:mariadb://localhost:"+PORT+"/"+NOMBASE, USER, PASSWORD);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {

@@ -43,7 +43,7 @@ public class AddEmpruntController implements Initializable {
     private Button addEmprunt;
 
     @FXML
-    private Button annuleAddEmprunt;
+    private Button annuleAddEmprunt, addreservation;
 
     @FXML
     private TextField dureeEmprunt;
@@ -90,20 +90,25 @@ public class AddEmpruntController implements Initializable {
 
     @FXML
     public void selectOeuvre() throws SQLException {
+        addExamplaireEmpruntComboBox.getItems().clear();
         String ISBN = addOeuvreEmpruntComboBox.getSelectionModel().getSelectedItem().split(":")[0];
         exemplaires = exemplaireDB.selectAll(ISBN);
-
-        for(Exemplaire exemplaire : exemplaires){
-            if(!exemplaire.getEtatExemplaire().equals("Emprunté") && !exemplaire.getEtatExemplaire().equals("Mauvais")){
-                addExamplaireEmpruntComboBox.getItems().add("Exemplaire:"+exemplaire.getIdExemplaire());
+        if(exemplaires.size()>0){
+            for(Exemplaire exemplaire : exemplaires){
+                if(!exemplaire.getEtatExemplaire().equals("Emprunté") && !exemplaire.getEtatExemplaire().equals("Mauvais")){
+                    addExamplaireEmpruntComboBox.getItems().add("Exemplaire:"+exemplaire.getIdExemplaire());
+                }
             }
-        }
-        Oeuvre oeuvre = oeuvreDB.findByISBN(ISBN);
-        if(oeuvre.getType().equals("Livre")) {
-            dureeEmprunt.setText(String.valueOf(Variable.EMPRUNTLIVRE));
-        }
-        if(oeuvre.getType().equals("Magazine")){
-            dureeEmprunt.setText(String.valueOf(Variable.EMPUNTMAGAZINE));
+            Oeuvre oeuvre = oeuvreDB.findByISBN(ISBN);
+            if(oeuvre.getType().equals("Livre")) {
+                dureeEmprunt.setText(String.valueOf(Variable.EMPRUNTLIVRE));
+            }
+            if(oeuvre.getType().equals("Magazine")){
+                dureeEmprunt.setText(String.valueOf(Variable.EMPUNTMAGAZINE));
+            }
+            addreservation.setDisable(true);
+        }else{
+            addreservation.setDisable(false);
         }
     }
 
